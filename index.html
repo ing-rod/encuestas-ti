@@ -155,7 +155,11 @@ button.secundario{
   font-size:60px;
 }
 
-/* acceso administración */
+.estado-sync{
+  margin-top:15px;
+  font-size:14px;
+  color:#666;
+}
 
 .admin-link{
   text-align:center;
@@ -169,8 +173,6 @@ button.secundario{
   background:transparent;
   color:#888;
 }
-
-/* DASHBOARD */
 
 .dashboard-grid{
   display:grid;
@@ -247,13 +249,6 @@ button.secundario{
   border-radius:10px;
 }
 
-.filtros{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:20px;
-}
-
 @media(max-width:700px){
   .app{
     margin:0;
@@ -268,10 +263,6 @@ button.secundario{
   .dashboard-grid{
     grid-template-columns:1fr 1fr;
   }
-
-  .filtros{
-    grid-template-columns:1fr;
-  }
 }
 </style>
 </head>
@@ -281,10 +272,9 @@ button.secundario{
 <div class="app">
 
 <!-- TÉCNICO -->
-
 <section id="pantallaTecnico" class="card">
 
-<img src="./logo-am-blue.png" class="logo">
+<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
 
 <h1>Digitalización</h1>
 <p class="subtitulo">Registro previo del servicio</p>
@@ -365,12 +355,10 @@ button.secundario{
 
 </section>
 
-
 <!-- ENCUESTA -->
-
 <section id="pantallaEncuesta" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo">
+<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
 
 <h1>Encuesta de satisfacción</h1>
 
@@ -427,29 +415,26 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 
 </section>
 
-
 <!-- GRACIAS -->
-
 <section id="pantallaFinal" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo">
+<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
 
 <div class="mensaje-final">
 <div class="check">✓</div>
 <h2>Gracias por su evaluación</h2>
 <p>Su respuesta ha sido registrada correctamente.</p>
+<div id="estadoSync" class="estado-sync"></div>
 </div>
 
 <button onclick="nuevoServicio()">Nuevo servicio</button>
 
 </section>
 
-
 <!-- LOGIN -->
-
 <section id="pantallaLogin" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo">
+<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
 
 <h1>Administración</h1>
 
@@ -459,17 +444,14 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 </div>
 
 <button onclick="validarPIN()">Entrar</button>
-
 <button class="secundario" onclick="volverInicio()">Cancelar</button>
 
 </section>
 
-
 <!-- PANEL -->
-
 <section id="pantallaAdmin" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo">
+<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
 
 <h1>Resultados</h1>
 
@@ -497,66 +479,42 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 
 </div>
 
-
 <div class="bloque">
-
 <h2>Resultado por pregunta</h2>
-
 <div id="resultadoPreguntas"></div>
-
 </div>
 
-
 <div class="bloque">
-
 <h2>Resolución del servicio</h2>
-
 <table class="tabla">
 <tbody id="tablaResolucion"></tbody>
 </table>
-
 </div>
 
-
 <div class="bloque">
-
 <h2>Canal de solicitud</h2>
-
 <table class="tabla">
 <tbody id="tablaCanales"></tbody>
 </table>
-
 </div>
 
-
 <div class="bloque">
-
 <h2>Secciones atendidas</h2>
-
 <table class="tabla">
 <tbody id="tablaSecciones"></tbody>
 </table>
-
 </div>
 
-
 <div class="bloque">
-
 <h2>Tipos de problema</h2>
-
 <table class="tabla">
 <tbody id="tablaProblemas"></tbody>
 </table>
-
 </div>
 
-
 <div class="bloque">
-
 <h2>Comentarios</h2>
-
 <div id="listaComentarios"></div>
-
 </div>
 
 <button class="secundario" onclick="cerrarAdmin()">Cerrar panel</button>
@@ -565,408 +523,491 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 const PIN_ADMIN = "1989";
 
-let servicioActual = null;
+const SUPABASE_URL = "https://bonoutnmhiwoehupounu.supabase.co";
 
+const SUPABASE_KEY =
+"sb_publishable_aiMCSMnMrnAlBA9QUK76tA_nEfmM6ng";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+let servicioActual = null;
 
 /* CREAR ESCALAS */
 
 document.querySelectorAll(".escala").forEach(contenedor => {
 
-const pregunta = contenedor.dataset.pregunta;
+  const pregunta = contenedor.dataset.pregunta;
 
-for(let i=1;i<=5;i++){
+  for(let i=1;i<=5;i++){
 
-const div=document.createElement("div");
+    const div=document.createElement("div");
 
-div.className="opcion-escala";
+    div.className="opcion-escala";
 
-div.innerHTML=`
-<input type="radio"
-id="${pregunta}_${i}"
-name="${pregunta}"
-value="${i}">
-<label for="${pregunta}_${i}">${i}</label>
-`;
+    div.innerHTML=`
+      <input type="radio"
+      id="${pregunta}_${i}"
+      name="${pregunta}"
+      value="${i}">
+      <label for="${pregunta}_${i}">${i}</label>
+    `;
 
-contenedor.appendChild(div);
-
-}
-
+    contenedor.appendChild(div);
+  }
 });
-
 
 function mostrarPantalla(id){
 
-document.querySelectorAll("section").forEach(s=>{
-s.classList.add("oculto");
-});
+  document.querySelectorAll("section").forEach(s=>{
+    s.classList.add("oculto");
+  });
 
-document.getElementById(id).classList.remove("oculto");
+  document.getElementById(id).classList.remove("oculto");
 
-window.scrollTo(0,0);
-
+  window.scrollTo(0,0);
 }
-
 
 /* SERVICIO */
 
 function iniciarEncuesta(){
 
-const tecnico=document.getElementById("tecnico").value;
-const seccion=document.getElementById("seccion").value;
-const cargo=document.getElementById("cargo").value;
-const medio=document.getElementById("medio").value;
-const problema=document.getElementById("problema").value;
+  const tecnico=document.getElementById("tecnico").value;
+  const seccion=document.getElementById("seccion").value;
+  const cargo=document.getElementById("cargo").value;
+  const medio=document.getElementById("medio").value;
+  const problema=document.getElementById("problema").value;
 
-if(!tecnico||!seccion||!cargo||!medio||!problema){
+  if(!tecnico||!seccion||!cargo||!medio||!problema){
 
-alert("Completa todos los datos del servicio.");
+    alert("Completa todos los datos del servicio.");
 
-return;
+    return;
+  }
 
+  servicioActual={
+    tecnico,
+    seccion,
+    cargo,
+    medio,
+    problema,
+    fecha:new Date().toISOString()
+  };
+
+  mostrarPantalla("pantallaEncuesta");
 }
-
-servicioActual={
-tecnico,
-seccion,
-cargo,
-medio,
-problema,
-fecha:new Date().toISOString()
-};
-
-mostrarPantalla("pantallaEncuesta");
-
-}
-
 
 function valorPregunta(nombre){
 
-const r=document.querySelector(
-`input[name="${nombre}"]:checked`
-);
+  const r=document.querySelector(
+    `input[name="${nombre}"]:checked`
+  );
 
-return r ? Number(r.value) : null;
-
+  return r ? Number(r.value) : null;
 }
-
 
 /* GUARDAR */
 
-function guardarEncuesta(){
+async function guardarEncuesta(){
 
-const resuelto=document.getElementById("resuelto").value;
+  const resuelto=document.getElementById("resuelto").value;
 
-const p1=valorPregunta("p1");
-const p2=valorPregunta("p2");
-const p3=valorPregunta("p3");
-const p4=valorPregunta("p4");
-const p5=valorPregunta("p5");
+  const p1=valorPregunta("p1");
+  const p2=valorPregunta("p2");
+  const p3=valorPregunta("p3");
+  const p4=valorPregunta("p4");
+  const p5=valorPregunta("p5");
 
-if(!resuelto||!p1||!p2||!p3||!p4||!p5){
+  if(!resuelto||!p1||!p2||!p3||!p4||!p5){
 
-alert("Por favor responde todas las preguntas.");
+    alert("Por favor responde todas las preguntas.");
 
-return;
+    return;
+  }
 
+  const puntos=p1+p2+p3+p4+p5;
+
+  const porcentaje=
+    Number(((puntos/25)*100).toFixed(2));
+
+  const localId =
+    crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now()+"-"+Math.random();
+
+  const registro={
+
+    ...servicioActual,
+
+    local_id:localId,
+
+    resuelto,
+
+    p1,p2,p3,p4,p5,
+
+    puntos,
+
+    porcentaje,
+
+    comentario:
+      document.getElementById("comentario").value.trim(),
+
+    sincronizado:false
+  };
+
+  let registros=
+    JSON.parse(localStorage.getItem("encuestasTI"))||[];
+
+  registros.push(registro);
+
+  localStorage.setItem(
+    "encuestasTI",
+    JSON.stringify(registros)
+  );
+
+  let sincronizado=false;
+
+  if(navigator.onLine){
+    sincronizado=await enviarASupabase(registro);
+
+    if(sincronizado){
+      marcarComoSincronizado(localId);
+    }
+  }
+
+  document.getElementById("estadoSync").textContent =
+    sincronizado
+      ? "✓ Sincronizada con la base de datos"
+      : "Guardada en este dispositivo. Se sincronizará cuando haya conexión.";
+
+  mostrarPantalla("pantallaFinal");
 }
 
-const puntos=p1+p2+p3+p4+p5;
+function registroSupabase(registro){
 
-const porcentaje=
-Number(((puntos/25)*100).toFixed(2));
-
-const registro={
-
-...servicioActual,
-
-resuelto,
-
-p1,p2,p3,p4,p5,
-
-puntos,
-
-porcentaje,
-
-comentario:
-document.getElementById("comentario").value.trim(),
-
-sincronizado:false
-
-};
-
-let registros=
-JSON.parse(localStorage.getItem("encuestasTI"))||[];
-
-registros.push(registro);
-
-localStorage.setItem(
-"encuestasTI",
-JSON.stringify(registros)
-);
-
-mostrarPantalla("pantallaFinal");
-
+  return {
+    local_id:registro.local_id,
+    fecha:registro.fecha,
+    tecnico:registro.tecnico,
+    seccion:registro.seccion,
+    cargo:registro.cargo,
+    medio:registro.medio,
+    problema:registro.problema,
+    resuelto:registro.resuelto,
+    p1:registro.p1,
+    p2:registro.p2,
+    p3:registro.p3,
+    p4:registro.p4,
+    p5:registro.p5,
+    puntos:registro.puntos,
+    porcentaje:registro.porcentaje,
+    comentario:registro.comentario
+  };
 }
 
+async function enviarASupabase(registro){
+
+  try{
+
+    const { error }=
+      await supabaseClient
+      .from("encuestas")
+      .insert(registroSupabase(registro));
+
+    if(!error){
+      return true;
+    }
+
+    if(error.code==="23505"){
+      return true;
+    }
+
+    console.error("Error al sincronizar:",error);
+
+    return false;
+
+  }catch(error){
+
+    console.error("Sin conexión:",error);
+
+    return false;
+  }
+}
+
+function marcarComoSincronizado(localId){
+
+  let registros=
+    JSON.parse(localStorage.getItem("encuestasTI"))||[];
+
+  registros=registros.map(registro=>{
+
+    if(registro.local_id===localId){
+      registro.sincronizado=true;
+    }
+
+    return registro;
+  });
+
+  localStorage.setItem(
+    "encuestasTI",
+    JSON.stringify(registros)
+  );
+}
+
+async function sincronizarPendientes(){
+
+  if(!navigator.onLine){
+    return;
+  }
+
+  let registros=
+    JSON.parse(localStorage.getItem("encuestasTI"))||[];
+
+  let huboCambios=false;
+
+  for(const registro of registros){
+
+    if(registro.sincronizado===true){
+      continue;
+    }
+
+    if(!registro.local_id){
+
+      registro.local_id=
+        crypto.randomUUID
+          ? crypto.randomUUID()
+          : Date.now()+"-"+Math.random();
+
+      huboCambios=true;
+    }
+
+    const correcto=
+      await enviarASupabase(registro);
+
+    if(correcto){
+      registro.sincronizado=true;
+      huboCambios=true;
+    }
+  }
+
+  if(huboCambios){
+
+    localStorage.setItem(
+      "encuestasTI",
+      JSON.stringify(registros)
+    );
+  }
+}
 
 /* NUEVO */
 
 function nuevoServicio(){
 
-document.querySelectorAll(
-'input[type="radio"]'
-).forEach(r=>r.checked=false);
+  document.querySelectorAll(
+    'input[type="radio"]'
+  ).forEach(r=>r.checked=false);
 
-document.getElementById("resuelto").value="";
-document.getElementById("comentario").value="";
+  document.getElementById("resuelto").value="";
+  document.getElementById("comentario").value="";
 
-document.getElementById("tecnico").value="";
-document.getElementById("seccion").value="";
-document.getElementById("cargo").value="";
-document.getElementById("medio").value="";
-document.getElementById("problema").value="";
+  document.getElementById("tecnico").value="";
+  document.getElementById("seccion").value="";
+  document.getElementById("cargo").value="";
+  document.getElementById("medio").value="";
+  document.getElementById("problema").value="";
 
-mostrarPantalla("pantallaTecnico");
-
+  mostrarPantalla("pantallaTecnico");
 }
-
 
 /* LOGIN */
 
 function abrirLogin(){
 
-document.getElementById("pinAdmin").value="";
+  document.getElementById("pinAdmin").value="";
 
-mostrarPantalla("pantallaLogin");
-
+  mostrarPantalla("pantallaLogin");
 }
-
 
 function validarPIN(){
 
-if(document.getElementById("pinAdmin").value===PIN_ADMIN){
+  if(document.getElementById("pinAdmin").value===PIN_ADMIN){
 
-cargarDashboard();
+    cargarDashboard();
 
-mostrarPantalla("pantallaAdmin");
+    mostrarPantalla("pantallaAdmin");
 
-}else{
+  }else{
 
-alert("PIN incorrecto");
-
+    alert("PIN incorrecto");
+  }
 }
-
-}
-
 
 function volverInicio(){
-
-mostrarPantalla("pantallaTecnico");
-
+  mostrarPantalla("pantallaTecnico");
 }
-
 
 function cerrarAdmin(){
-
-mostrarPantalla("pantallaTecnico");
-
+  mostrarPantalla("pantallaTecnico");
 }
 
-
-/* DASHBOARD */
+/* DASHBOARD LOCAL */
 
 function cargarDashboard(){
 
-const registros=
-JSON.parse(localStorage.getItem("encuestasTI"))||[];
+  const registros=
+    JSON.parse(localStorage.getItem("encuestasTI"))||[];
 
-const total=registros.length;
+  const total=registros.length;
 
-const puntos=
-registros.reduce((a,r)=>a+r.puntos,0);
+  const puntos=
+    registros.reduce((a,r)=>a+r.puntos,0);
 
-const maximo=total*25;
+  const maximo=total*25;
 
-const satisfaccion=
-maximo
-? (puntos/maximo*100).toFixed(2)
-: 0;
+  const satisfaccion=
+    maximo
+      ? (puntos/maximo*100).toFixed(2)
+      : 0;
 
-document.getElementById("totalEncuestas").textContent=total;
+  document.getElementById("totalEncuestas").textContent=total;
 
-document.getElementById("puntosResultado").textContent=
-`${puntos} / ${maximo}`;
+  document.getElementById("puntosResultado").textContent=
+    `${puntos} / ${maximo}`;
 
-document.getElementById("satisfaccionGeneral").textContent=
-`${satisfaccion}%`;
+  document.getElementById("satisfaccionGeneral").textContent=
+    `${satisfaccion}%`;
 
+  const si=
+    registros.filter(r=>r.resuelto==="Sí").length;
 
-/* RESUELTOS */
+  const porcResueltos=
+    total ? ((si/total)*100).toFixed(1) : 0;
 
-const si=
-registros.filter(r=>r.resuelto==="Sí").length;
+  document.getElementById("resueltosGeneral").textContent=
+    porcResueltos+"%";
 
-const porcResueltos=
-total ? ((si/total)*100).toFixed(1) : 0;
+  const preguntas=[
+    ["p1","Tiempo de atención"],
+    ["p2","Atención del personal"],
+    ["p3","Solución recibida"],
+    ["p4","Claridad de explicación"],
+    ["p5","Satisfacción general"]
+  ];
 
-document.getElementById("resueltosGeneral").textContent=
-porcResueltos+"%";
+  let html="";
 
+  preguntas.forEach(([campo,nombre])=>{
 
-/* PREGUNTAS */
+    const suma=
+      registros.reduce((a,r)=>a+r[campo],0);
 
-const preguntas=[
-["p1","Tiempo de atención"],
-["p2","Atención del personal"],
-["p3","Solución recibida"],
-["p4","Claridad de explicación"],
-["p5","Satisfacción general"]
-];
+    const max=
+      total*5;
 
-let html="";
+    const porcentaje=
+      max ? (suma/max*100).toFixed(2) : 0;
 
-preguntas.forEach(([campo,nombre])=>{
+    html+=`
+      <div class="barra-fila">
+        <div class="barra-titulo">
+          <span>${nombre}</span>
+          <strong>${porcentaje}%</strong>
+        </div>
+        <div class="barra">
+          <div style="width:${porcentaje}%"></div>
+        </div>
+      </div>
+    `;
+  });
 
-const suma=
-registros.reduce((a,r)=>a+r[campo],0);
+  document.getElementById("resultadoPreguntas").innerHTML=html;
 
-const max=
-total*5;
+  crearTabla(registros,"resuelto","tablaResolucion");
+  crearTabla(registros,"medio","tablaCanales");
+  crearTabla(registros,"seccion","tablaSecciones");
+  crearTabla(registros,"problema","tablaProblemas");
 
-const porcentaje=
-max ? (suma/max*100).toFixed(2) : 0;
+  const comentarios=
+    registros.filter(r=>r.comentario);
 
-html+=`
+  const cont=
+    document.getElementById("listaComentarios");
 
-<div class="barra-fila">
+  if(!comentarios.length){
 
-<div class="barra-titulo">
-<span>${nombre}</span>
-<strong>${porcentaje}%</strong>
-</div>
+    cont.innerHTML=
+      "<p>No hay comentarios registrados.</p>";
 
-<div class="barra">
-<div style="width:${porcentaje}%"></div>
-</div>
+  }else{
 
-</div>
-
-`;
-
-});
-
-document.getElementById("resultadoPreguntas").innerHTML=html;
-
-
-/* TABLAS */
-
-crearTabla(
-registros,
-"resuelto",
-"tablaResolucion"
-);
-
-crearTabla(
-registros,
-"medio",
-"tablaCanales"
-);
-
-crearTabla(
-registros,
-"seccion",
-"tablaSecciones"
-);
-
-crearTabla(
-registros,
-"problema",
-"tablaProblemas"
-);
-
-
-/* COMENTARIOS */
-
-const comentarios=
-registros
-.filter(r=>r.comentario);
-
-const cont=
-document.getElementById("listaComentarios");
-
-if(!comentarios.length){
-
-cont.innerHTML=
-"<p>No hay comentarios registrados.</p>";
-
-}else{
-
-cont.innerHTML=
-comentarios.reverse().map(r=>`
-
-<div class="comentario">
-
-<strong>${new Date(r.fecha).toLocaleDateString()}</strong>
-
-<br>
-
-${r.comentario}
-
-</div>
-
-`).join("");
-
+    cont.innerHTML=
+      comentarios
+      .slice()
+      .reverse()
+      .map(r=>`
+        <div class="comentario">
+          <strong>${new Date(r.fecha).toLocaleDateString()}</strong>
+          <br>
+          ${r.comentario}
+        </div>
+      `)
+      .join("");
+  }
 }
-
-}
-
 
 function crearTabla(registros,campo,id){
 
-const conteo={};
+  const conteo={};
 
-registros.forEach(r=>{
+  registros.forEach(r=>{
 
-const valor=r[campo]||"Sin especificar";
+    const valor=r[campo]||"Sin especificar";
 
-conteo[valor]=(conteo[valor]||0)+1;
+    conteo[valor]=(conteo[valor]||0)+1;
+  });
 
-});
+  const total=registros.length;
 
-const total=registros.length;
+  const filas=
+    Object.entries(conteo)
+    .sort((a,b)=>b[1]-a[1])
+    .map(([nombre,cantidad])=>{
 
-const filas=
-Object.entries(conteo)
-.sort((a,b)=>b[1]-a[1])
-.map(([nombre,cantidad])=>{
+      const porcentaje=
+        total
+          ? ((cantidad/total)*100).toFixed(1)
+          : 0;
 
-const porcentaje=
-total
-? ((cantidad/total)*100).toFixed(1)
-: 0;
+      return `
+        <tr>
+          <td>${nombre}</td>
+          <td>${cantidad}</td>
+          <td>${porcentaje}%</td>
+        </tr>
+      `;
+    }).join("");
 
-return `
-
-<tr>
-<td>${nombre}</td>
-<td>${cantidad}</td>
-<td>${porcentaje}%</td>
-</tr>
-
-`;
-
-}).join("");
-
-document.getElementById(id).innerHTML=
-filas || `<tr><td>Sin datos</td></tr>`;
-
+  document.getElementById(id).innerHTML=
+    filas || `<tr><td>Sin datos</td></tr>`;
 }
+
+window.addEventListener(
+  "online",
+  sincronizarPendientes
+);
+
+window.addEventListener(
+  "load",
+  sincronizarPendientes
+);
 
 </script>
 
