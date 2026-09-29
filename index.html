@@ -1,501 +1,971 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Encuesta de Satisfacción - Digitalización</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta de Satisfacción - Digitalización</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{box-sizing:border-box}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #eef3f6;
-      color: #1f1f1f;
-    }
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#eef3f6;
+  color:#1f1f1f;
+}
 
-    .app {
-      max-width: 760px;
-      margin: 30px auto;
-      padding: 20px;
-    }
+.app{
+  max-width:900px;
+  margin:30px auto;
+  padding:20px;
+}
 
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
+.card{
+  background:white;
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
 
-    .logo {
-      display: block;
-      max-width: 190px;
-      width: 55%;
-      height: auto;
-      margin: 0 auto 20px auto;
-    }
+.logo{
+  display:block;
+  max-width:190px;
+  width:55%;
+  height:auto;
+  margin:0 auto 20px;
+}
 
-    h1 {
-      margin-top: 0;
-      text-align: center;
-      font-size: 34px;
-    }
+h1{
+  margin-top:0;
+  text-align:center;
+  font-size:34px;
+}
 
-    h2 {
-      margin-top: 0;
-      font-size: 25px;
-    }
+h2{margin-top:0}
 
-    .subtitulo {
-      text-align: center;
-      color: #666;
-      margin-bottom: 30px;
-    }
+.subtitulo{
+  text-align:center;
+  color:#666;
+  margin-bottom:30px;
+}
 
-    .campo {
-      margin-bottom: 22px;
-    }
+.campo{margin-bottom:22px}
 
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-      font-size: 17px;
-    }
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+  font-size:17px;
+}
 
-    select,
-    input,
-    textarea {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1px solid #c8c8c8;
-      border-radius: 10px;
-      font-size: 16px;
-      background: white;
-    }
+select,input,textarea{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #c8c8c8;
+  border-radius:10px;
+  font-size:16px;
+  background:white;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
 
-    button {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 15px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #163b70;
-      color: white;
-      margin-top: 10px;
-    }
+button{
+  width:100%;
+  border:none;
+  border-radius:12px;
+  padding:15px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  background:#163b70;
+  color:white;
+  margin-top:10px;
+}
 
-    button.secundario {
-      background: #e8edf3;
-      color: #1d3557;
-    }
+button.secundario{
+  background:#e8edf3;
+  color:#163b70;
+}
 
-    .oculto {
-      display: none;
-    }
+.oculto{display:none!important}
 
-    .pregunta {
-      margin-bottom: 28px;
-    }
+.pregunta{margin-bottom:28px}
 
-    .pregunta p {
-      margin-bottom: 12px;
-      font-weight: bold;
-      font-size: 17px;
-    }
+.pregunta p{
+  margin-bottom:12px;
+  font-weight:bold;
+  font-size:17px;
+}
 
-    .escala {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
+.escala{
+  display:flex;
+  gap:8px;
+}
 
-    .opcion-escala {
-      flex: 1;
-      text-align: center;
-    }
+.opcion-escala{
+  flex:1;
+  text-align:center;
+}
 
-    .opcion-escala input {
-      display: none;
-    }
+.opcion-escala input{display:none}
 
-    .opcion-escala label {
-      display: block;
-      padding: 12px 0;
-      border: 1px solid #cfd5db;
-      border-radius: 10px;
-      cursor: pointer;
-      margin: 0;
-      font-weight: normal;
-    }
+.opcion-escala label{
+  display:block;
+  padding:12px 0;
+  border:1px solid #cfd5db;
+  border-radius:10px;
+  cursor:pointer;
+  margin:0;
+  font-weight:normal;
+}
 
-    .opcion-escala input:checked + label {
-      background: #163b70;
-      color: white;
-      border-color: #163b70;
-    }
+.opcion-escala input:checked + label{
+  background:#163b70;
+  color:white;
+  border-color:#163b70;
+}
 
-    .extremos {
-      display: flex;
-      justify-content: space-between;
-      color: #777;
-      font-size: 13px;
-      margin-top: 6px;
-    }
+.extremos{
+  display:flex;
+  justify-content:space-between;
+  color:#777;
+  font-size:13px;
+  margin-top:6px;
+}
 
-    .mensaje-final {
-      text-align: center;
-      padding: 35px 15px;
-    }
+.resumen{
+  background:#f6f8fa;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:20px;
+  font-size:14px;
+  color:#555;
+}
 
-    .mensaje-final .check {
-      font-size: 60px;
-      margin-bottom: 10px;
-    }
+.mensaje-final{
+  text-align:center;
+  padding:35px 15px;
+}
 
-    .resumen {
-      background: #f6f8fa;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 20px;
-      font-size: 14px;
-      color: #555;
-    }
+.check{
+  font-size:60px;
+}
 
-    @media (max-width: 600px) {
-      .app {
-        margin: 0;
-        padding: 12px;
-      }
+/* acceso administración */
 
-      .card {
-        border-radius: 14px;
-        padding: 20px;
-      }
+.admin-link{
+  text-align:center;
+  margin-top:18px;
+}
 
-      h1 {
-        font-size: 28px;
-      }
+.admin-link button{
+  width:auto;
+  padding:8px 14px;
+  font-size:13px;
+  background:transparent;
+  color:#888;
+}
 
-      .logo {
-        max-width: 160px;
-        width: 50%;
-      }
+/* DASHBOARD */
 
-      .escala {
-        gap: 4px;
-      }
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
 
-      .opcion-escala label {
-        padding: 10px 0;
-      }
-    }
-  </style>
+.indicador{
+  background:#f4f7fa;
+  border-radius:15px;
+  padding:20px;
+  text-align:center;
+}
+
+.indicador .numero{
+  font-size:30px;
+  font-weight:bold;
+  color:#163b70;
+}
+
+.indicador .texto{
+  font-size:13px;
+  color:#666;
+  margin-top:5px;
+}
+
+.bloque{
+  margin-top:25px;
+  padding-top:10px;
+}
+
+.barra-fila{
+  margin:14px 0;
+}
+
+.barra-titulo{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+
+.barra{
+  background:#e8edf3;
+  height:14px;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.barra div{
+  height:100%;
+  background:#163b70;
+  border-radius:20px;
+}
+
+.tabla{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+}
+
+.tabla th,
+.tabla td{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+  font-size:14px;
+}
+
+.comentario{
+  background:#f6f8fa;
+  padding:13px;
+  margin-bottom:10px;
+  border-radius:10px;
+}
+
+.filtros{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+@media(max-width:700px){
+  .app{
+    margin:0;
+    padding:12px;
+  }
+
+  .card{
+    padding:20px;
+    border-radius:14px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .filtros{
+    grid-template-columns:1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- PANTALLA TÉCNICO -->
-  <section id="pantallaTecnico" class="card">
+<!-- TÉCNICO -->
 
-    <img src="logo-am-blue.png" alt="Colegio Anglo Mexicano" class="logo">
+<section id="pantallaTecnico" class="card">
 
-    <h1>Digitalización</h1>
-    <p class="subtitulo">Registro previo del servicio</p>
+<img src="./logo-am-blue.png" class="logo">
 
-    <div class="campo">
-      <label for="tecnico">Técnico que realizó el servicio</label>
-      <select id="tecnico">
-        <option value="">Selecciona</option>
-        <option value="Marcia Rodríguez">Marcia Rodríguez</option>
-        <option value="Otro">Otro</option>
-      </select>
-    </div>
+<h1>Digitalización</h1>
+<p class="subtitulo">Registro previo del servicio</p>
 
-    <div class="campo">
-      <label for="seccion">Sección</label>
-      <select id="seccion">
-        <option value="">Selecciona</option>
-        <option>Maternal</option>
-        <option>Kínder</option>
-        <option>Primaria</option>
-        <option>Secundaria</option>
-        <option>Bachillerato</option>
-        <option>Administración</option>
-        <option>Dirección</option>
-        <option>Otro</option>
-      </select>
-    </div>
+<div class="campo">
+<label>Técnico que realizó el servicio</label>
+<select id="tecnico">
+<option value="">Selecciona</option>
+<option>Marcia Rodríguez</option>
+<option>Otro</option>
+</select>
+</div>
 
-    <div class="campo">
-      <label for="cargo">Cargo o rol de la persona atendida</label>
-      <select id="cargo">
-        <option value="">Selecciona</option>
-        <option>Docente</option>
-        <option>Coordinación</option>
-        <option>Dirección</option>
-        <option>Administrativo</option>
-        <option>Auxiliar</option>
-        <option>Alumno</option>
-        <option>Padre de familia</option>
-        <option>Otro</option>
-      </select>
-    </div>
+<div class="campo">
+<label>Sección</label>
+<select id="seccion">
+<option value="">Selecciona</option>
+<option>Maternal</option>
+<option>Kínder</option>
+<option>Primaria</option>
+<option>Secundaria</option>
+<option>Bachillerato</option>
+<option>Administración</option>
+<option>Dirección</option>
+<option>Otro</option>
+</select>
+</div>
 
-    <div class="campo">
-      <label for="medio">¿Por qué medio solicitó apoyo al área de Digitalización?</label>
-      <select id="medio">
-        <option value="">Selecciona</option>
-        <option>Telegram</option>
-        <option>Llamada telefónica</option>
-        <option>Correo electrónico</option>
-        <option>En persona</option>
-        <option>Otro</option>
-      </select>
-    </div>
+<div class="campo">
+<label>Cargo o rol</label>
+<select id="cargo">
+<option value="">Selecciona</option>
+<option>Docente</option>
+<option>Coordinación</option>
+<option>Dirección</option>
+<option>Administrativo</option>
+<option>Auxiliar</option>
+<option>Alumno</option>
+<option>Padre de familia</option>
+<option>Otro</option>
+</select>
+</div>
 
-    <div class="campo">
-      <label for="problema">Tipo de problema atendido</label>
-      <select id="problema">
-        <option value="">Selecciona</option>
-        <option>Internet / Wi-Fi</option>
-        <option>Proyector</option>
-        <option>Impresora</option>
-        <option>iPad</option>
-        <option>Computadora</option>
-        <option>Software / Aplicación</option>
-        <option>Cuenta / Acceso</option>
-        <option>Google Classroom</option>
-        <option>Audio / Video</option>
-        <option>Otro</option>
-      </select>
-    </div>
+<div class="campo">
+<label>¿Por qué medio solicitó apoyo?</label>
+<select id="medio">
+<option value="">Selecciona</option>
+<option>Telegram</option>
+<option>Llamada telefónica</option>
+<option>Correo electrónico</option>
+<option>En persona</option>
+<option>Otro</option>
+</select>
+</div>
 
-    <button onclick="iniciarEncuesta()">Entregar encuesta</button>
+<div class="campo">
+<label>Tipo de problema atendido</label>
+<select id="problema">
+<option value="">Selecciona</option>
+<option>Internet / Wi-Fi</option>
+<option>Proyector</option>
+<option>Impresora</option>
+<option>iPad</option>
+<option>Computadora</option>
+<option>Software / Aplicación</option>
+<option>Cuenta / Acceso</option>
+<option>Google Classroom</option>
+<option>Audio / Video</option>
+<option>Otro</option>
+</select>
+</div>
 
-  </section>
+<button onclick="iniciarEncuesta()">Entregar encuesta</button>
 
+<div class="admin-link">
+<button onclick="abrirLogin()">Administración</button>
+</div>
 
-  <!-- PANTALLA ENCUESTA -->
-  <section id="pantallaEncuesta" class="card oculto">
-
-    <img src="logo-am-blue.png" alt="Colegio Anglo Mexicano" class="logo">
-
-    <h1>Encuesta de satisfacción</h1>
-
-    <p class="subtitulo">
-      Su opinión nos ayuda a mejorar la atención y los servicios del área de Digitalización.
-    </p>
-
-    <div class="resumen">
-      Esta evaluación es confidencial. La información del servicio ya fue registrada por el personal de Digitalización.
-    </div>
-
-    <div class="campo">
-      <label for="resuelto">¿El problema quedó resuelto?</label>
-      <select id="resuelto">
-        <option value="">Selecciona</option>
-        <option>Sí</option>
-        <option>Parcialmente</option>
-        <option>No</option>
-      </select>
-    </div>
-
-    <div class="pregunta">
-      <p>1. Tiempo de atención recibido</p>
-      <div class="escala" data-pregunta="p1"></div>
-      <div class="extremos"><span>Malo</span><span>Excelente</span></div>
-    </div>
-
-    <div class="pregunta">
-      <p>2. Atención brindada por el personal de Digitalización</p>
-      <div class="escala" data-pregunta="p2"></div>
-      <div class="extremos"><span>Mala</span><span>Excelente</span></div>
-    </div>
-
-    <div class="pregunta">
-      <p>3. La solución o información recibida respondió a su necesidad</p>
-      <div class="escala" data-pregunta="p3"></div>
-      <div class="extremos"><span>Malo</span><span>Excelente</span></div>
-    </div>
-
-    <div class="pregunta">
-      <p>4. La explicación proporcionada fue clara y fácil de comprender</p>
-      <div class="escala" data-pregunta="p4"></div>
-      <div class="extremos"><span>Malo</span><span>Excelente</span></div>
-    </div>
-
-    <div class="pregunta">
-      <p>5. Satisfacción general con el servicio recibido</p>
-      <div class="escala" data-pregunta="p5"></div>
-      <div class="extremos"><span>Muy baja</span><span>Excelente</span></div>
-    </div>
-
-    <div class="campo">
-      <label for="comentario">Comentarios o sugerencias</label>
-      <textarea id="comentario" placeholder="Opcional"></textarea>
-    </div>
-
-    <button onclick="guardarEncuesta()">Enviar evaluación</button>
-
-  </section>
+</section>
 
 
-  <!-- PANTALLA FINAL -->
-  <section id="pantallaFinal" class="card oculto">
+<!-- ENCUESTA -->
 
-    <img src="logo-am-blue.png" alt="Colegio Anglo Mexicano" class="logo">
+<section id="pantallaEncuesta" class="card oculto">
 
-    <div class="mensaje-final">
-      <div class="check">✓</div>
-      <h2>Gracias por su evaluación</h2>
-      <p>Su respuesta ha sido registrada correctamente.</p>
-    </div>
+<img src="./logo-am-blue.png" class="logo">
 
-    <button onclick="nuevoServicio()">Nuevo servicio</button>
+<h1>Encuesta de satisfacción</h1>
 
-  </section>
+<p class="subtitulo">
+Su opinión nos ayuda a mejorar la atención y los servicios del área de Digitalización.
+</p>
+
+<div class="campo">
+<label>¿El problema quedó resuelto?</label>
+<select id="resuelto">
+<option value="">Selecciona</option>
+<option>Sí</option>
+<option>Parcialmente</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="pregunta">
+<p>1. Tiempo de atención recibido</p>
+<div class="escala" data-pregunta="p1"></div>
+<div class="extremos"><span>Malo</span><span>Excelente</span></div>
+</div>
+
+<div class="pregunta">
+<p>2. Atención brindada por el personal de Digitalización</p>
+<div class="escala" data-pregunta="p2"></div>
+<div class="extremos"><span>Mala</span><span>Excelente</span></div>
+</div>
+
+<div class="pregunta">
+<p>3. La solución o información recibida respondió a su necesidad</p>
+<div class="escala" data-pregunta="p3"></div>
+<div class="extremos"><span>Malo</span><span>Excelente</span></div>
+</div>
+
+<div class="pregunta">
+<p>4. La explicación proporcionada fue clara y fácil de comprender</p>
+<div class="escala" data-pregunta="p4"></div>
+<div class="extremos"><span>Malo</span><span>Excelente</span></div>
+</div>
+
+<div class="pregunta">
+<p>5. Satisfacción general con el servicio recibido</p>
+<div class="escala" data-pregunta="p5"></div>
+<div class="extremos"><span>Muy baja</span><span>Excelente</span></div>
+</div>
+
+<div class="campo">
+<label>Comentarios o sugerencias</label>
+<textarea id="comentario" placeholder="Opcional"></textarea>
+</div>
+
+<button onclick="guardarEncuesta()">Enviar evaluación</button>
+
+</section>
+
+
+<!-- GRACIAS -->
+
+<section id="pantallaFinal" class="card oculto">
+
+<img src="./logo-am-blue.png" class="logo">
+
+<div class="mensaje-final">
+<div class="check">✓</div>
+<h2>Gracias por su evaluación</h2>
+<p>Su respuesta ha sido registrada correctamente.</p>
+</div>
+
+<button onclick="nuevoServicio()">Nuevo servicio</button>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="pantallaLogin" class="card oculto">
+
+<img src="./logo-am-blue.png" class="logo">
+
+<h1>Administración</h1>
+
+<div class="campo">
+<label>PIN</label>
+<input id="pinAdmin" type="password" inputmode="numeric" maxlength="4">
+</div>
+
+<button onclick="validarPIN()">Entrar</button>
+
+<button class="secundario" onclick="volverInicio()">Cancelar</button>
+
+</section>
+
+
+<!-- PANEL -->
+
+<section id="pantallaAdmin" class="card oculto">
+
+<img src="./logo-am-blue.png" class="logo">
+
+<h1>Resultados</h1>
+
+<div class="dashboard-grid">
+
+<div class="indicador">
+<div class="numero" id="totalEncuestas">0</div>
+<div class="texto">Encuestas</div>
+</div>
+
+<div class="indicador">
+<div class="numero" id="puntosResultado">0 / 0</div>
+<div class="texto">Puntos</div>
+</div>
+
+<div class="indicador">
+<div class="numero" id="satisfaccionGeneral">0%</div>
+<div class="texto">Satisfacción</div>
+</div>
+
+<div class="indicador">
+<div class="numero" id="resueltosGeneral">0%</div>
+<div class="texto">Problemas resueltos</div>
+</div>
+
+</div>
+
+
+<div class="bloque">
+
+<h2>Resultado por pregunta</h2>
+
+<div id="resultadoPreguntas"></div>
+
+</div>
+
+
+<div class="bloque">
+
+<h2>Resolución del servicio</h2>
+
+<table class="tabla">
+<tbody id="tablaResolucion"></tbody>
+</table>
+
+</div>
+
+
+<div class="bloque">
+
+<h2>Canal de solicitud</h2>
+
+<table class="tabla">
+<tbody id="tablaCanales"></tbody>
+</table>
+
+</div>
+
+
+<div class="bloque">
+
+<h2>Secciones atendidas</h2>
+
+<table class="tabla">
+<tbody id="tablaSecciones"></tbody>
+</table>
+
+</div>
+
+
+<div class="bloque">
+
+<h2>Tipos de problema</h2>
+
+<table class="tabla">
+<tbody id="tablaProblemas"></tbody>
+</table>
+
+</div>
+
+
+<div class="bloque">
+
+<h2>Comentarios</h2>
+
+<div id="listaComentarios"></div>
+
+</div>
+
+<button class="secundario" onclick="cerrarAdmin()">Cerrar panel</button>
+
+</section>
 
 </div>
 
 
 <script>
 
+const PIN_ADMIN = "1989";
+
 let servicioActual = null;
 
-function crearEscalas() {
-  document.querySelectorAll(".escala").forEach(contenedor => {
 
-    const pregunta = contenedor.dataset.pregunta;
+/* CREAR ESCALAS */
 
-    for (let i = 1; i <= 5; i++) {
+document.querySelectorAll(".escala").forEach(contenedor => {
 
-      const div = document.createElement("div");
-      div.className = "opcion-escala";
+const pregunta = contenedor.dataset.pregunta;
 
-      div.innerHTML = `
-        <input type="radio" id="${pregunta}_${i}" name="${pregunta}" value="${i}">
-        <label for="${pregunta}_${i}">${i}</label>
-      `;
+for(let i=1;i<=5;i++){
 
-      contenedor.appendChild(div);
-    }
+const div=document.createElement("div");
 
-  });
+div.className="opcion-escala";
+
+div.innerHTML=`
+<input type="radio"
+id="${pregunta}_${i}"
+name="${pregunta}"
+value="${i}">
+<label for="${pregunta}_${i}">${i}</label>
+`;
+
+contenedor.appendChild(div);
+
 }
 
-crearEscalas();
+});
 
 
-function iniciarEncuesta() {
+function mostrarPantalla(id){
 
-  const tecnico = document.getElementById("tecnico").value;
-  const seccion = document.getElementById("seccion").value;
-  const cargo = document.getElementById("cargo").value;
-  const medio = document.getElementById("medio").value;
-  const problema = document.getElementById("problema").value;
+document.querySelectorAll("section").forEach(s=>{
+s.classList.add("oculto");
+});
 
-  if (!tecnico || !seccion || !cargo || !medio || !problema) {
-    alert("Completa todos los datos del servicio antes de continuar.");
-    return;
-  }
+document.getElementById(id).classList.remove("oculto");
 
-  servicioActual = {
-    tecnico,
-    seccion,
-    cargo,
-    medio,
-    problema,
-    fecha: new Date().toISOString()
-  };
+window.scrollTo(0,0);
 
-  document.getElementById("pantallaTecnico").classList.add("oculto");
-  document.getElementById("pantallaEncuesta").classList.remove("oculto");
 }
 
 
-function valorPregunta(nombre) {
-  const seleccionado = document.querySelector(`input[name="${nombre}"]:checked`);
-  return seleccionado ? Number(seleccionado.value) : null;
+/* SERVICIO */
+
+function iniciarEncuesta(){
+
+const tecnico=document.getElementById("tecnico").value;
+const seccion=document.getElementById("seccion").value;
+const cargo=document.getElementById("cargo").value;
+const medio=document.getElementById("medio").value;
+const problema=document.getElementById("problema").value;
+
+if(!tecnico||!seccion||!cargo||!medio||!problema){
+
+alert("Completa todos los datos del servicio.");
+
+return;
+
+}
+
+servicioActual={
+tecnico,
+seccion,
+cargo,
+medio,
+problema,
+fecha:new Date().toISOString()
+};
+
+mostrarPantalla("pantallaEncuesta");
+
 }
 
 
-function guardarEncuesta() {
+function valorPregunta(nombre){
 
-  const resuelto = document.getElementById("resuelto").value;
+const r=document.querySelector(
+`input[name="${nombre}"]:checked`
+);
 
-  const p1 = valorPregunta("p1");
-  const p2 = valorPregunta("p2");
-  const p3 = valorPregunta("p3");
-  const p4 = valorPregunta("p4");
-  const p5 = valorPregunta("p5");
+return r ? Number(r.value) : null;
 
-  const comentario = document.getElementById("comentario").value.trim();
-
-  if (!resuelto || !p1 || !p2 || !p3 || !p4 || !p5) {
-    alert("Por favor responde todas las preguntas obligatorias.");
-    return;
-  }
-
-  const puntos = p1 + p2 + p3 + p4 + p5;
-  const porcentaje = Number(((puntos / 25) * 100).toFixed(2));
-
-  const registro = {
-    ...servicioActual,
-    resuelto,
-    p1,
-    p2,
-    p3,
-    p4,
-    p5,
-    puntos,
-    porcentaje,
-    comentario,
-    sincronizado: false
-  };
-
-  let registros = JSON.parse(localStorage.getItem("encuestasTI")) || [];
-
-  registros.push(registro);
-
-  localStorage.setItem("encuestasTI", JSON.stringify(registros));
-
-  document.getElementById("pantallaEncuesta").classList.add("oculto");
-  document.getElementById("pantallaFinal").classList.remove("oculto");
 }
 
 
-function nuevoServicio() {
+/* GUARDAR */
 
-  servicioActual = null;
+function guardarEncuesta(){
 
-  document.getElementById("tecnico").value = "";
-  document.getElementById("seccion").value = "";
-  document.getElementById("cargo").value = "";
-  document.getElementById("medio").value = "";
-  document.getElementById("problema").value = "";
+const resuelto=document.getElementById("resuelto").value;
 
-  document.getElementById("resuelto").value = "";
-  document.getElementById("comentario").value = "";
+const p1=valorPregunta("p1");
+const p2=valorPregunta("p2");
+const p3=valorPregunta("p3");
+const p4=valorPregunta("p4");
+const p5=valorPregunta("p5");
 
-  document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.checked = false;
-  });
+if(!resuelto||!p1||!p2||!p3||!p4||!p5){
 
-  document.getElementById("pantallaFinal").classList.add("oculto");
-  document.getElementById("pantallaTecnico").classList.remove("oculto");
+alert("Por favor responde todas las preguntas.");
+
+return;
+
+}
+
+const puntos=p1+p2+p3+p4+p5;
+
+const porcentaje=
+Number(((puntos/25)*100).toFixed(2));
+
+const registro={
+
+...servicioActual,
+
+resuelto,
+
+p1,p2,p3,p4,p5,
+
+puntos,
+
+porcentaje,
+
+comentario:
+document.getElementById("comentario").value.trim(),
+
+sincronizado:false
+
+};
+
+let registros=
+JSON.parse(localStorage.getItem("encuestasTI"))||[];
+
+registros.push(registro);
+
+localStorage.setItem(
+"encuestasTI",
+JSON.stringify(registros)
+);
+
+mostrarPantalla("pantallaFinal");
+
+}
+
+
+/* NUEVO */
+
+function nuevoServicio(){
+
+document.querySelectorAll(
+'input[type="radio"]'
+).forEach(r=>r.checked=false);
+
+document.getElementById("resuelto").value="";
+document.getElementById("comentario").value="";
+
+document.getElementById("tecnico").value="";
+document.getElementById("seccion").value="";
+document.getElementById("cargo").value="";
+document.getElementById("medio").value="";
+document.getElementById("problema").value="";
+
+mostrarPantalla("pantallaTecnico");
+
+}
+
+
+/* LOGIN */
+
+function abrirLogin(){
+
+document.getElementById("pinAdmin").value="";
+
+mostrarPantalla("pantallaLogin");
+
+}
+
+
+function validarPIN(){
+
+if(document.getElementById("pinAdmin").value===PIN_ADMIN){
+
+cargarDashboard();
+
+mostrarPantalla("pantallaAdmin");
+
+}else{
+
+alert("PIN incorrecto");
+
+}
+
+}
+
+
+function volverInicio(){
+
+mostrarPantalla("pantallaTecnico");
+
+}
+
+
+function cerrarAdmin(){
+
+mostrarPantalla("pantallaTecnico");
+
+}
+
+
+/* DASHBOARD */
+
+function cargarDashboard(){
+
+const registros=
+JSON.parse(localStorage.getItem("encuestasTI"))||[];
+
+const total=registros.length;
+
+const puntos=
+registros.reduce((a,r)=>a+r.puntos,0);
+
+const maximo=total*25;
+
+const satisfaccion=
+maximo
+? (puntos/maximo*100).toFixed(2)
+: 0;
+
+document.getElementById("totalEncuestas").textContent=total;
+
+document.getElementById("puntosResultado").textContent=
+`${puntos} / ${maximo}`;
+
+document.getElementById("satisfaccionGeneral").textContent=
+`${satisfaccion}%`;
+
+
+/* RESUELTOS */
+
+const si=
+registros.filter(r=>r.resuelto==="Sí").length;
+
+const porcResueltos=
+total ? ((si/total)*100).toFixed(1) : 0;
+
+document.getElementById("resueltosGeneral").textContent=
+porcResueltos+"%";
+
+
+/* PREGUNTAS */
+
+const preguntas=[
+["p1","Tiempo de atención"],
+["p2","Atención del personal"],
+["p3","Solución recibida"],
+["p4","Claridad de explicación"],
+["p5","Satisfacción general"]
+];
+
+let html="";
+
+preguntas.forEach(([campo,nombre])=>{
+
+const suma=
+registros.reduce((a,r)=>a+r[campo],0);
+
+const max=
+total*5;
+
+const porcentaje=
+max ? (suma/max*100).toFixed(2) : 0;
+
+html+=`
+
+<div class="barra-fila">
+
+<div class="barra-titulo">
+<span>${nombre}</span>
+<strong>${porcentaje}%</strong>
+</div>
+
+<div class="barra">
+<div style="width:${porcentaje}%"></div>
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("resultadoPreguntas").innerHTML=html;
+
+
+/* TABLAS */
+
+crearTabla(
+registros,
+"resuelto",
+"tablaResolucion"
+);
+
+crearTabla(
+registros,
+"medio",
+"tablaCanales"
+);
+
+crearTabla(
+registros,
+"seccion",
+"tablaSecciones"
+);
+
+crearTabla(
+registros,
+"problema",
+"tablaProblemas"
+);
+
+
+/* COMENTARIOS */
+
+const comentarios=
+registros
+.filter(r=>r.comentario);
+
+const cont=
+document.getElementById("listaComentarios");
+
+if(!comentarios.length){
+
+cont.innerHTML=
+"<p>No hay comentarios registrados.</p>";
+
+}else{
+
+cont.innerHTML=
+comentarios.reverse().map(r=>`
+
+<div class="comentario">
+
+<strong>${new Date(r.fecha).toLocaleDateString()}</strong>
+
+<br>
+
+${r.comentario}
+
+</div>
+
+`).join("");
+
+}
+
+}
+
+
+function crearTabla(registros,campo,id){
+
+const conteo={};
+
+registros.forEach(r=>{
+
+const valor=r[campo]||"Sin especificar";
+
+conteo[valor]=(conteo[valor]||0)+1;
+
+});
+
+const total=registros.length;
+
+const filas=
+Object.entries(conteo)
+.sort((a,b)=>b[1]-a[1])
+.map(([nombre,cantidad])=>{
+
+const porcentaje=
+total
+? ((cantidad/total)*100).toFixed(1)
+: 0;
+
+return `
+
+<tr>
+<td>${nombre}</td>
+<td>${cantidad}</td>
+<td>${porcentaje}%</td>
+</tr>
+
+`;
+
+}).join("");
+
+document.getElementById(id).innerHTML=
+filas || `<tr><td>Sin datos</td></tr>`;
+
 }
 
 </script>
