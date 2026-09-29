@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuesta de Satisfacción TI</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+
+    .contenedor {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p {
+      text-align: center;
+      color: #666;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .estrellas {
+      display: flex;
+      gap: 10px;
+      font-size: 34px;
+      cursor: pointer;
+    }
+
+    .estrella {
+      opacity: 0.3;
+    }
+
+    .estrella.activa {
+      opacity: 1;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .mensaje {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="contenedor">
+
+    <h1>Servicio de TI</h1>
+
+    <p>Ayúdanos a evaluar la atención recibida.</p>
+
+    <label>¿El problema quedó resuelto?</label>
+
+    <select id="resuelto">
+      <option value="">Selecciona una opción</option>
+      <option value="Sí">Sí</option>
+      <option value="Parcialmente">Parcialmente</option>
+      <option value="No">No</option>
+    </select>
+
+    <label>¿Cómo calificas la atención?</label>
+
+    <div class="estrellas" id="estrellas">
+      <span class="estrella" data-valor="1">★</span>
+      <span class="estrella" data-valor="2">★</span>
+      <span class="estrella" data-valor="3">★</span>
+      <span class="estrella" data-valor="4">★</span>
+      <span class="estrella" data-valor="5">★</span>
+    </div>
+
+    <label>Comentario adicional</label>
+
+    <textarea id="comentario" placeholder="Opcional"></textarea>
+
+    <button onclick="guardarEncuesta()">
+      Enviar evaluación
+    </button>
+
+    <div class="mensaje" id="mensaje">
+      ✓ Gracias. Tu evaluación fue registrada.
+    </div>
+
+  </div>
+
+  <script>
+
+    let calificacion = 0;
+
+    const estrellas = document.querySelectorAll(".estrella");
+
+    estrellas.forEach(estrella => {
+
+      estrella.addEventListener("click", () => {
+
+        calificacion = Number(estrella.dataset.valor);
+
+        estrellas.forEach((e, index) => {
+
+          if (index < calificacion) {
+            e.classList.add("activa");
+          } else {
+            e.classList.remove("activa");
+          }
+
+        });
+
+      });
+
+    });
+
+
+    function guardarEncuesta() {
+
+      const resuelto = document.getElementById("resuelto").value;
+      const comentario = document.getElementById("comentario").value;
+
+      if (!resuelto || calificacion === 0) {
+
+        alert("Por favor completa la evaluación.");
+
+        return;
+
+      }
+
+      const encuesta = {
+
+        fecha: new Date().toISOString(),
+        resuelto: resuelto,
+        calificacion: calificacion,
+        comentario: comentario
+
+      };
+
+      let encuestas = JSON.parse(
+        localStorage.getItem("encuestasTI")
+      ) || [];
+
+      encuestas.push(encuesta);
+
+      localStorage.setItem(
+        "encuestasTI",
+        JSON.stringify(encuestas)
+      );
+
+      document.getElementById("mensaje").style.display = "block";
+
+      document.getElementById("resuelto").value = "";
+      document.getElementById("comentario").value = "";
+
+      calificacion = 0;
+
+      estrellas.forEach(e => e.classList.remove("activa"));
+
+    }
+
+  </script>
+
+</body>
+</html>
