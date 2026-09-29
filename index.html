@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Encuesta de Satisfacción - Digitalización</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -42,7 +46,9 @@ h1{
   font-size:34px;
 }
 
-h2{margin-top:0}
+h2{
+  margin-top:0;
+}
 
 .subtitulo{
   text-align:center;
@@ -50,7 +56,9 @@ h2{margin-top:0}
   margin-bottom:30px;
 }
 
-.campo{margin-bottom:22px}
+.campo{
+  margin-bottom:22px;
+}
 
 label{
   display:block;
@@ -59,7 +67,9 @@ label{
   font-size:17px;
 }
 
-select,input,textarea{
+select,
+input,
+textarea{
   width:100%;
   padding:13px 14px;
   border:1px solid #c8c8c8;
@@ -91,9 +101,13 @@ button.secundario{
   color:#163b70;
 }
 
-.oculto{display:none!important}
+.oculto{
+  display:none!important;
+}
 
-.pregunta{margin-bottom:28px}
+.pregunta{
+  margin-bottom:28px;
+}
 
 .pregunta p{
   margin-bottom:12px;
@@ -111,7 +125,9 @@ button.secundario{
   text-align:center;
 }
 
-.opcion-escala input{display:none}
+.opcion-escala input{
+  display:none;
+}
 
 .opcion-escala label{
   display:block;
@@ -135,15 +151,6 @@ button.secundario{
   color:#777;
   font-size:13px;
   margin-top:6px;
-}
-
-.resumen{
-  background:#f6f8fa;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:20px;
-  font-size:14px;
-  color:#555;
 }
 
 .mensaje-final{
@@ -249,7 +256,21 @@ button.secundario{
   border-radius:10px;
 }
 
+.mensaje-error{
+  color:#b00020;
+  text-align:center;
+  margin-top:12px;
+}
+
+.usuario-admin{
+  text-align:center;
+  color:#666;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
 @media(max-width:700px){
+
   .app{
     margin:0;
     padding:12px;
@@ -263,7 +284,9 @@ button.secundario{
   .dashboard-grid{
     grid-template-columns:1fr 1fr;
   }
+
 }
+
 </style>
 </head>
 
@@ -271,27 +294,60 @@ button.secundario{
 
 <div class="app">
 
-<!-- TÉCNICO -->
+
+<!-- PANTALLA TÉCNICO -->
+
 <section id="pantallaTecnico" class="card">
 
-<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
+<img
+src="./logo-am-blue.png"
+class="logo"
+alt="Colegio Anglo Mexicano">
 
 <h1>Digitalización</h1>
-<p class="subtitulo">Registro previo del servicio</p>
+
+<p class="subtitulo">
+Registro previo del servicio
+</p>
+
 
 <div class="campo">
-<label>Técnico que realizó el servicio</label>
+
+<label>
+Técnico que realizó el servicio
+</label>
+
 <select id="tecnico">
-<option value="">Selecciona</option>
-<option>Marcia Rodríguez</option>
-<option>Otro</option>
+
+<option value="">
+Selecciona
+</option>
+
+<option>
+Marcia Rodríguez
+</option>
+
+<option>
+Otro
+</option>
+
 </select>
+
 </div>
 
+
 <div class="campo">
-<label>Sección</label>
+
+<label>
+Sección
+</label>
+
 <select id="seccion">
-<option value="">Selecciona</option>
+
+<option value="">
+Selecciona
+</option>
+
 <option>Maternal</option>
 <option>Kínder</option>
 <option>Primaria</option>
@@ -300,13 +356,24 @@ button.secundario{
 <option>Administración</option>
 <option>Dirección</option>
 <option>Otro</option>
+
 </select>
+
 </div>
 
+
 <div class="campo">
-<label>Cargo o rol</label>
+
+<label>
+Cargo o rol
+</label>
+
 <select id="cargo">
-<option value="">Selecciona</option>
+
+<option value="">
+Selecciona
+</option>
+
 <option>Docente</option>
 <option>Coordinación</option>
 <option>Dirección</option>
@@ -315,25 +382,47 @@ button.secundario{
 <option>Alumno</option>
 <option>Padre de familia</option>
 <option>Otro</option>
+
 </select>
+
 </div>
 
+
 <div class="campo">
-<label>¿Por qué medio solicitó apoyo?</label>
+
+<label>
+¿Por qué medio solicitó apoyo?
+</label>
+
 <select id="medio">
-<option value="">Selecciona</option>
+
+<option value="">
+Selecciona
+</option>
+
 <option>Telegram</option>
 <option>Llamada telefónica</option>
 <option>Correo electrónico</option>
 <option>En persona</option>
 <option>Otro</option>
+
 </select>
+
 </div>
 
+
 <div class="campo">
-<label>Tipo de problema atendido</label>
+
+<label>
+Tipo de problema atendido
+</label>
+
 <select id="problema">
-<option value="">Selecciona</option>
+
+<option value="">
+Selecciona
+</option>
+
 <option>Internet / Wi-Fi</option>
 <option>Proyector</option>
 <option>Impresora</option>
@@ -344,665 +433,1678 @@ button.secundario{
 <option>Google Classroom</option>
 <option>Audio / Video</option>
 <option>Otro</option>
+
 </select>
+
 </div>
 
-<button onclick="iniciarEncuesta()">Entregar encuesta</button>
+
+<button onclick="iniciarEncuesta()">
+Entregar encuesta
+</button>
+
 
 <div class="admin-link">
-<button onclick="abrirLogin()">Administración</button>
+
+<button onclick="abrirLogin()">
+Administración
+</button>
+
 </div>
 
 </section>
 
-<!-- ENCUESTA -->
-<section id="pantallaEncuesta" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
+<!-- PANTALLA ENCUESTA -->
 
-<h1>Encuesta de satisfacción</h1>
+<section
+id="pantallaEncuesta"
+class="card oculto">
+
+<img
+src="./logo-am-blue.png"
+class="logo"
+alt="Colegio Anglo Mexicano">
+
+<h1>
+Encuesta de satisfacción
+</h1>
 
 <p class="subtitulo">
 Su opinión nos ayuda a mejorar la atención y los servicios del área de Digitalización.
 </p>
 
+
 <div class="campo">
-<label>¿El problema quedó resuelto?</label>
+
+<label>
+¿El problema quedó resuelto?
+</label>
+
 <select id="resuelto">
-<option value="">Selecciona</option>
+
+<option value="">
+Selecciona
+</option>
+
 <option>Sí</option>
 <option>Parcialmente</option>
 <option>No</option>
+
 </select>
+
 </div>
 
-<div class="pregunta">
-<p>1. Tiempo de atención recibido</p>
-<div class="escala" data-pregunta="p1"></div>
-<div class="extremos"><span>Malo</span><span>Excelente</span></div>
-</div>
 
 <div class="pregunta">
-<p>2. Atención brindada por el personal de Digitalización</p>
-<div class="escala" data-pregunta="p2"></div>
-<div class="extremos"><span>Mala</span><span>Excelente</span></div>
+
+<p>
+1. Tiempo de atención recibido
+</p>
+
+<div
+class="escala"
+data-pregunta="p1">
 </div>
 
-<div class="pregunta">
-<p>3. La solución o información recibida respondió a su necesidad</p>
-<div class="escala" data-pregunta="p3"></div>
-<div class="extremos"><span>Malo</span><span>Excelente</span></div>
+<div class="extremos">
+
+<span>Malo</span>
+<span>Excelente</span>
+
 </div>
 
-<div class="pregunta">
-<p>4. La explicación proporcionada fue clara y fácil de comprender</p>
-<div class="escala" data-pregunta="p4"></div>
-<div class="extremos"><span>Malo</span><span>Excelente</span></div>
 </div>
 
+
 <div class="pregunta">
-<p>5. Satisfacción general con el servicio recibido</p>
-<div class="escala" data-pregunta="p5"></div>
-<div class="extremos"><span>Muy baja</span><span>Excelente</span></div>
+
+<p>
+2. Atención brindada por el personal de Digitalización
+</p>
+
+<div
+class="escala"
+data-pregunta="p2">
 </div>
+
+<div class="extremos">
+
+<span>Mala</span>
+<span>Excelente</span>
+
+</div>
+
+</div>
+
+
+<div class="pregunta">
+
+<p>
+3. La solución o información recibida respondió a su necesidad
+</p>
+
+<div
+class="escala"
+data-pregunta="p3">
+</div>
+
+<div class="extremos">
+
+<span>Malo</span>
+<span>Excelente</span>
+
+</div>
+
+</div>
+
+
+<div class="pregunta">
+
+<p>
+4. La explicación proporcionada fue clara y fácil de comprender
+</p>
+
+<div
+class="escala"
+data-pregunta="p4">
+</div>
+
+<div class="extremos">
+
+<span>Malo</span>
+<span>Excelente</span>
+
+</div>
+
+</div>
+
+
+<div class="pregunta">
+
+<p>
+5. Satisfacción general con el servicio recibido
+</p>
+
+<div
+class="escala"
+data-pregunta="p5">
+</div>
+
+<div class="extremos">
+
+<span>Muy baja</span>
+<span>Excelente</span>
+
+</div>
+
+</div>
+
 
 <div class="campo">
-<label>Comentarios o sugerencias</label>
-<textarea id="comentario" placeholder="Opcional"></textarea>
+
+<label>
+Comentarios o sugerencias
+</label>
+
+<textarea
+id="comentario"
+placeholder="Opcional">
+</textarea>
+
 </div>
 
-<button onclick="guardarEncuesta()">Enviar evaluación</button>
+
+<button onclick="guardarEncuesta()">
+Enviar evaluación
+</button>
 
 </section>
 
-<!-- GRACIAS -->
-<section id="pantallaFinal" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
+<!-- PANTALLA GRACIAS -->
+
+<section
+id="pantallaFinal"
+class="card oculto">
+
+<img
+src="./logo-am-blue.png"
+class="logo"
+alt="Colegio Anglo Mexicano">
 
 <div class="mensaje-final">
-<div class="check">✓</div>
-<h2>Gracias por su evaluación</h2>
-<p>Su respuesta ha sido registrada correctamente.</p>
-<div id="estadoSync" class="estado-sync"></div>
+
+<div class="check">
+✓
 </div>
 
-<button onclick="nuevoServicio()">Nuevo servicio</button>
+<h2>
+Gracias por su evaluación
+</h2>
+
+<p>
+Su respuesta ha sido registrada correctamente.
+</p>
+
+<div
+id="estadoSync"
+class="estado-sync">
+</div>
+
+</div>
+
+
+<button onclick="nuevoServicio()">
+Nuevo servicio
+</button>
 
 </section>
 
-<!-- LOGIN -->
-<section id="pantallaLogin" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
+<!-- LOGIN ADMINISTRATIVO -->
 
-<h1>Administración</h1>
+<section
+id="pantallaLogin"
+class="card oculto">
+
+<img
+src="./logo-am-blue.png"
+class="logo"
+alt="Colegio Anglo Mexicano">
+
+<h1>
+Administración
+</h1>
+
 
 <div class="campo">
-<label>PIN</label>
-<input id="pinAdmin" type="password" inputmode="numeric" maxlength="4">
+
+<label>
+Correo
+</label>
+
+<input
+id="correoAdmin"
+type="email"
+placeholder="correo@colegio.com">
+
 </div>
 
-<button onclick="validarPIN()">Entrar</button>
-<button class="secundario" onclick="volverInicio()">Cancelar</button>
+
+<div class="campo">
+
+<label>
+Contraseña
+</label>
+
+<input
+id="passwordAdmin"
+type="password">
+
+</div>
+
+
+<button onclick="iniciarSesionAdmin()">
+Entrar
+</button>
+
+
+<div
+id="errorLogin"
+class="mensaje-error">
+</div>
+
+
+<button
+class="secundario"
+onclick="volverInicio()">
+
+Cancelar
+
+</button>
 
 </section>
 
-<!-- PANEL -->
-<section id="pantallaAdmin" class="card oculto">
 
-<img src="./logo-am-blue.png" class="logo" alt="Colegio Anglo Mexicano">
+<!-- PANEL ADMINISTRATIVO -->
 
-<h1>Resultados</h1>
+<section
+id="pantallaAdmin"
+class="card oculto">
+
+<img
+src="./logo-am-blue.png"
+class="logo"
+alt="Colegio Anglo Mexicano">
+
+<h1>
+Resultados
+</h1>
+
+<div
+id="usuarioAdmin"
+class="usuario-admin">
+</div>
+
 
 <div class="dashboard-grid">
 
-<div class="indicador">
-<div class="numero" id="totalEncuestas">0</div>
-<div class="texto">Encuestas</div>
-</div>
 
 <div class="indicador">
-<div class="numero" id="puntosResultado">0 / 0</div>
-<div class="texto">Puntos</div>
+
+<div
+class="numero"
+id="totalEncuestas">
+0
 </div>
+
+<div class="texto">
+Encuestas
+</div>
+
+</div>
+
 
 <div class="indicador">
-<div class="numero" id="satisfaccionGeneral">0%</div>
-<div class="texto">Satisfacción</div>
+
+<div
+class="numero"
+id="puntosResultado">
+0 / 0
 </div>
+
+<div class="texto">
+Puntos
+</div>
+
+</div>
+
 
 <div class="indicador">
-<div class="numero" id="resueltosGeneral">0%</div>
-<div class="texto">Problemas resueltos</div>
+
+<div
+class="numero"
+id="satisfaccionGeneral">
+0%
+</div>
+
+<div class="texto">
+Satisfacción
 </div>
 
 </div>
+
+
+<div class="indicador">
+
+<div
+class="numero"
+id="resueltosGeneral">
+0%
+</div>
+
+<div class="texto">
+Problemas resueltos
+</div>
+
+</div>
+
+
+</div>
+
 
 <div class="bloque">
-<h2>Resultado por pregunta</h2>
-<div id="resultadoPreguntas"></div>
+
+<h2>
+Resultado por pregunta
+</h2>
+
+<div id="resultadoPreguntas">
 </div>
 
+</div>
+
+
 <div class="bloque">
-<h2>Resolución del servicio</h2>
+
+<h2>
+Resolución del servicio
+</h2>
+
 <table class="tabla">
-<tbody id="tablaResolucion"></tbody>
+
+<tbody id="tablaResolucion">
+</tbody>
+
 </table>
+
 </div>
 
+
 <div class="bloque">
-<h2>Canal de solicitud</h2>
+
+<h2>
+Canal de solicitud
+</h2>
+
 <table class="tabla">
-<tbody id="tablaCanales"></tbody>
+
+<tbody id="tablaCanales">
+</tbody>
+
 </table>
+
 </div>
 
+
 <div class="bloque">
-<h2>Secciones atendidas</h2>
+
+<h2>
+Secciones atendidas
+</h2>
+
 <table class="tabla">
-<tbody id="tablaSecciones"></tbody>
+
+<tbody id="tablaSecciones">
+</tbody>
+
 </table>
+
 </div>
 
+
 <div class="bloque">
-<h2>Tipos de problema</h2>
+
+<h2>
+Tipos de problema
+</h2>
+
 <table class="tabla">
-<tbody id="tablaProblemas"></tbody>
+
+<tbody id="tablaProblemas">
+</tbody>
+
 </table>
+
 </div>
+
 
 <div class="bloque">
-<h2>Comentarios</h2>
-<div id="listaComentarios"></div>
+
+<h2>
+Comentarios
+</h2>
+
+<div id="listaComentarios">
 </div>
 
-<button class="secundario" onclick="cerrarAdmin()">Cerrar panel</button>
+</div>
+
+
+<button onclick="actualizarDashboard()">
+Actualizar resultados
+</button>
+
+
+<button
+class="secundario"
+onclick="cerrarSesionAdmin()">
+
+Cerrar sesión
+
+</button>
 
 </section>
 
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
-const PIN_ADMIN = "1989";
-
-const SUPABASE_URL = "https://bonoutnmhiwoehupounu.supabase.co";
+const SUPABASE_URL =
+"https://bonoutnmhiwoehupounu.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_aiMCSMnMrnAlBA9QUK76tA_nEfmM6ng";
 
-const supabaseClient = window.supabase.createClient(
+
+const supabaseClient =
+window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
-let servicioActual = null;
+
+let servicioActual=null;
+
 
 /* CREAR ESCALAS */
 
-document.querySelectorAll(".escala").forEach(contenedor => {
+document
+.querySelectorAll(".escala")
+.forEach(contenedor=>{
 
-  const pregunta = contenedor.dataset.pregunta;
+  const pregunta=
+  contenedor.dataset.pregunta;
 
   for(let i=1;i<=5;i++){
 
-    const div=document.createElement("div");
+    const div=
+    document.createElement("div");
 
-    div.className="opcion-escala";
+    div.className=
+    "opcion-escala";
 
     div.innerHTML=`
-      <input type="radio"
+
+      <input
+      type="radio"
       id="${pregunta}_${i}"
       name="${pregunta}"
       value="${i}">
-      <label for="${pregunta}_${i}">${i}</label>
+
+      <label
+      for="${pregunta}_${i}">
+      ${i}
+      </label>
+
     `;
 
     contenedor.appendChild(div);
+
   }
+
 });
+
 
 function mostrarPantalla(id){
 
-  document.querySelectorAll("section").forEach(s=>{
+  document
+  .querySelectorAll("section")
+  .forEach(s=>{
+
     s.classList.add("oculto");
+
   });
 
-  document.getElementById(id).classList.remove("oculto");
+
+  document
+  .getElementById(id)
+  .classList.remove("oculto");
+
 
   window.scrollTo(0,0);
+
 }
 
-/* SERVICIO */
+
+/* REGISTRO DEL SERVICIO */
 
 function iniciarEncuesta(){
 
-  const tecnico=document.getElementById("tecnico").value;
-  const seccion=document.getElementById("seccion").value;
-  const cargo=document.getElementById("cargo").value;
-  const medio=document.getElementById("medio").value;
-  const problema=document.getElementById("problema").value;
+  const tecnico=
+  document.getElementById("tecnico").value;
 
-  if(!tecnico||!seccion||!cargo||!medio||!problema){
+  const seccion=
+  document.getElementById("seccion").value;
 
-    alert("Completa todos los datos del servicio.");
+  const cargo=
+  document.getElementById("cargo").value;
+
+  const medio=
+  document.getElementById("medio").value;
+
+  const problema=
+  document.getElementById("problema").value;
+
+
+  if(
+    !tecnico ||
+    !seccion ||
+    !cargo ||
+    !medio ||
+    !problema
+  ){
+
+    alert(
+      "Completa todos los datos del servicio."
+    );
 
     return;
+
   }
 
+
   servicioActual={
+
     tecnico,
     seccion,
     cargo,
     medio,
     problema,
-    fecha:new Date().toISOString()
+
+    fecha:
+    new Date().toISOString()
+
   };
 
-  mostrarPantalla("pantallaEncuesta");
+
+  mostrarPantalla(
+    "pantallaEncuesta"
+  );
+
 }
+
 
 function valorPregunta(nombre){
 
-  const r=document.querySelector(
+  const r=
+  document.querySelector(
     `input[name="${nombre}"]:checked`
   );
 
-  return r ? Number(r.value) : null;
+
+  return r
+  ? Number(r.value)
+  : null;
+
 }
 
-/* GUARDAR */
+
+/* GUARDAR ENCUESTA */
 
 async function guardarEncuesta(){
 
-  const resuelto=document.getElementById("resuelto").value;
+  const resuelto=
+  document.getElementById("resuelto").value;
 
-  const p1=valorPregunta("p1");
-  const p2=valorPregunta("p2");
-  const p3=valorPregunta("p3");
-  const p4=valorPregunta("p4");
-  const p5=valorPregunta("p5");
+  const p1=
+  valorPregunta("p1");
 
-  if(!resuelto||!p1||!p2||!p3||!p4||!p5){
+  const p2=
+  valorPregunta("p2");
 
-    alert("Por favor responde todas las preguntas.");
+  const p3=
+  valorPregunta("p3");
+
+  const p4=
+  valorPregunta("p4");
+
+  const p5=
+  valorPregunta("p5");
+
+
+  if(
+    !resuelto ||
+    !p1 ||
+    !p2 ||
+    !p3 ||
+    !p4 ||
+    !p5
+  ){
+
+    alert(
+      "Por favor responde todas las preguntas."
+    );
 
     return;
+
   }
 
-  const puntos=p1+p2+p3+p4+p5;
+
+  const puntos=
+  p1+p2+p3+p4+p5;
+
 
   const porcentaje=
-    Number(((puntos/25)*100).toFixed(2));
+  Number(
+    (
+      puntos/25*100
+    )
+    .toFixed(2)
+  );
 
-  const localId =
-    crypto.randomUUID
-      ? crypto.randomUUID()
-      : Date.now()+"-"+Math.random();
+
+  const localId=
+  crypto.randomUUID
+  ? crypto.randomUUID()
+  : Date.now()+"-"+Math.random();
+
 
   const registro={
 
     ...servicioActual,
 
-    local_id:localId,
+    local_id:
+    localId,
 
     resuelto,
 
-    p1,p2,p3,p4,p5,
+    p1,
+    p2,
+    p3,
+    p4,
+    p5,
 
     puntos,
 
     porcentaje,
 
     comentario:
-      document.getElementById("comentario").value.trim(),
+    document
+    .getElementById("comentario")
+    .value
+    .trim(),
 
     sincronizado:false
+
   };
 
-  let registros=
-    JSON.parse(localStorage.getItem("encuestasTI"))||[];
 
-  registros.push(registro);
+  let registros=
+  JSON.parse(
+    localStorage.getItem(
+      "encuestasTI"
+    )
+  ) || [];
+
+
+  registros.push(
+    registro
+  );
+
 
   localStorage.setItem(
     "encuestasTI",
     JSON.stringify(registros)
   );
+
 
   let sincronizado=false;
 
-  if(navigator.onLine){
-    sincronizado=await enviarASupabase(registro);
 
-    if(sincronizado){
-      marcarComoSincronizado(localId);
+  if(
+    navigator.onLine
+  ){
+
+    sincronizado=
+    await enviarASupabase(
+      registro
+    );
+
+
+    if(
+      sincronizado
+    ){
+
+      marcarComoSincronizado(
+        localId
+      );
+
     }
+
   }
 
-  document.getElementById("estadoSync").textContent =
-    sincronizado
-      ? "✓ Sincronizada con la base de datos"
-      : "Guardada en este dispositivo. Se sincronizará cuando haya conexión.";
 
-  mostrarPantalla("pantallaFinal");
+  document
+  .getElementById(
+    "estadoSync"
+  )
+  .textContent=
+
+  sincronizado
+  ? "✓ Sincronizada con la base de datos"
+  : "Guardada en este dispositivo. Se sincronizará cuando haya conexión.";
+
+
+  mostrarPantalla(
+    "pantallaFinal"
+  );
+
 }
 
-function registroSupabase(registro){
 
-  return {
-    local_id:registro.local_id,
-    fecha:registro.fecha,
-    tecnico:registro.tecnico,
-    seccion:registro.seccion,
-    cargo:registro.cargo,
-    medio:registro.medio,
-    problema:registro.problema,
-    resuelto:registro.resuelto,
-    p1:registro.p1,
-    p2:registro.p2,
-    p3:registro.p3,
-    p4:registro.p4,
-    p5:registro.p5,
-    puntos:registro.puntos,
-    porcentaje:registro.porcentaje,
-    comentario:registro.comentario
+function registroSupabase(
+  registro
+){
+
+  return{
+
+    local_id:
+    registro.local_id,
+
+    fecha:
+    registro.fecha,
+
+    tecnico:
+    registro.tecnico,
+
+    seccion:
+    registro.seccion,
+
+    cargo:
+    registro.cargo,
+
+    medio:
+    registro.medio,
+
+    problema:
+    registro.problema,
+
+    resuelto:
+    registro.resuelto,
+
+    p1:
+    registro.p1,
+
+    p2:
+    registro.p2,
+
+    p3:
+    registro.p3,
+
+    p4:
+    registro.p4,
+
+    p5:
+    registro.p5,
+
+    puntos:
+    registro.puntos,
+
+    porcentaje:
+    registro.porcentaje,
+
+    comentario:
+    registro.comentario
+
   };
+
 }
 
-async function enviarASupabase(registro){
+
+async function enviarASupabase(
+  registro
+){
 
   try{
 
-    const { error }=
-      await supabaseClient
-      .from("encuestas")
-      .insert(registroSupabase(registro));
+    const {error}=
+    await supabaseClient
+    .from("encuestas")
+    .insert(
+      registroSupabase(
+        registro
+      )
+    );
 
-    if(!error){
+
+    if(
+      !error
+    ){
+
       return true;
+
     }
 
-    if(error.code==="23505"){
+
+    if(
+      error.code==="23505"
+    ){
+
       return true;
+
     }
 
-    console.error("Error al sincronizar:",error);
+
+    console.error(
+      error
+    );
+
 
     return false;
+
 
   }catch(error){
 
-    console.error("Sin conexión:",error);
+    console.error(
+      error
+    );
+
 
     return false;
+
   }
+
 }
 
-function marcarComoSincronizado(localId){
+
+function marcarComoSincronizado(
+  localId
+){
 
   let registros=
-    JSON.parse(localStorage.getItem("encuestasTI"))||[];
+  JSON.parse(
+    localStorage.getItem(
+      "encuestasTI"
+    )
+  ) || [];
 
-  registros=registros.map(registro=>{
 
-    if(registro.local_id===localId){
-      registro.sincronizado=true;
+  registros=
+  registros.map(
+    registro=>{
+
+      if(
+        registro.local_id===
+        localId
+      ){
+
+        registro.sincronizado=
+        true;
+
+      }
+
+
+      return registro;
+
     }
+  );
 
-    return registro;
-  });
 
   localStorage.setItem(
     "encuestasTI",
     JSON.stringify(registros)
   );
+
 }
+
 
 async function sincronizarPendientes(){
 
-  if(!navigator.onLine){
+  if(
+    !navigator.onLine
+  ){
+
     return;
+
   }
 
+
   let registros=
-    JSON.parse(localStorage.getItem("encuestasTI"))||[];
+  JSON.parse(
+    localStorage.getItem(
+      "encuestasTI"
+    )
+  ) || [];
+
 
   let huboCambios=false;
 
-  for(const registro of registros){
 
-    if(registro.sincronizado===true){
+  for(
+    const registro
+    of registros
+  ){
+
+    if(
+      registro.sincronizado===
+      true
+    ){
+
       continue;
+
     }
 
-    if(!registro.local_id){
+
+    if(
+      !registro.local_id
+    ){
 
       registro.local_id=
-        crypto.randomUUID
-          ? crypto.randomUUID()
-          : Date.now()+"-"+Math.random();
+      crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now()+"-"+Math.random();
 
-      huboCambios=true;
+
+      huboCambios=
+      true;
+
     }
+
 
     const correcto=
-      await enviarASupabase(registro);
+    await enviarASupabase(
+      registro
+    );
 
-    if(correcto){
-      registro.sincronizado=true;
-      huboCambios=true;
+
+    if(
+      correcto
+    ){
+
+      registro.sincronizado=
+      true;
+
+      huboCambios=
+      true;
+
     }
+
   }
 
-  if(huboCambios){
+
+  if(
+    huboCambios
+  ){
 
     localStorage.setItem(
       "encuestasTI",
       JSON.stringify(registros)
     );
+
   }
+
 }
 
-/* NUEVO */
+
+/* NUEVO SERVICIO */
 
 function nuevoServicio(){
 
-  document.querySelectorAll(
+  document
+  .querySelectorAll(
     'input[type="radio"]'
-  ).forEach(r=>r.checked=false);
+  )
+  .forEach(
+    r=>r.checked=false
+  );
 
-  document.getElementById("resuelto").value="";
-  document.getElementById("comentario").value="";
 
-  document.getElementById("tecnico").value="";
-  document.getElementById("seccion").value="";
-  document.getElementById("cargo").value="";
-  document.getElementById("medio").value="";
-  document.getElementById("problema").value="";
+  document
+  .getElementById("resuelto")
+  .value="";
 
-  mostrarPantalla("pantallaTecnico");
+
+  document
+  .getElementById("comentario")
+  .value="";
+
+
+  document
+  .getElementById("tecnico")
+  .value="";
+
+
+  document
+  .getElementById("seccion")
+  .value="";
+
+
+  document
+  .getElementById("cargo")
+  .value="";
+
+
+  document
+  .getElementById("medio")
+  .value="";
+
+
+  document
+  .getElementById("problema")
+  .value="";
+
+
+  mostrarPantalla(
+    "pantallaTecnico"
+  );
+
 }
 
-/* LOGIN */
+
+/* LOGIN ADMINISTRACIÓN */
 
 function abrirLogin(){
 
-  document.getElementById("pinAdmin").value="";
+  document
+  .getElementById(
+    "correoAdmin"
+  )
+  .value="";
 
-  mostrarPantalla("pantallaLogin");
+
+  document
+  .getElementById(
+    "passwordAdmin"
+  )
+  .value="";
+
+
+  document
+  .getElementById(
+    "errorLogin"
+  )
+  .textContent="";
+
+
+  mostrarPantalla(
+    "pantallaLogin"
+  );
+
 }
 
-function validarPIN(){
 
-  if(document.getElementById("pinAdmin").value===PIN_ADMIN){
+async function iniciarSesionAdmin(){
 
-    cargarDashboard();
+  const correo=
+  document
+  .getElementById(
+    "correoAdmin"
+  )
+  .value
+  .trim();
 
-    mostrarPantalla("pantallaAdmin");
 
-  }else{
+  const password=
+  document
+  .getElementById(
+    "passwordAdmin"
+  )
+  .value;
 
-    alert("PIN incorrecto");
+
+  if(
+    !correo ||
+    !password
+  ){
+
+    document
+    .getElementById(
+      "errorLogin"
+    )
+    .textContent=
+    "Escribe tu correo y contraseña.";
+
+    return;
+
   }
+
+
+  const {
+    data,
+    error
+  }=
+  await supabaseClient
+  .auth
+  .signInWithPassword({
+
+    email:
+    correo,
+
+    password:
+    password
+
+  });
+
+
+  if(
+    error
+  ){
+
+    document
+    .getElementById(
+      "errorLogin"
+    )
+    .textContent=
+    "Correo o contraseña incorrectos.";
+
+    return;
+
+  }
+
+
+  document
+  .getElementById(
+    "usuarioAdmin"
+  )
+  .textContent=
+  data.user.email;
+
+
+  await cargarDashboardSupabase();
+
+
+  mostrarPantalla(
+    "pantallaAdmin"
+  );
+
 }
+
+
+async function cerrarSesionAdmin(){
+
+  await supabaseClient
+  .auth
+  .signOut();
+
+
+  mostrarPantalla(
+    "pantallaTecnico"
+  );
+
+}
+
 
 function volverInicio(){
-  mostrarPantalla("pantallaTecnico");
+
+  mostrarPantalla(
+    "pantallaTecnico"
+  );
+
 }
 
-function cerrarAdmin(){
-  mostrarPantalla("pantallaTecnico");
+
+/* PANEL SUPABASE */
+
+async function actualizarDashboard(){
+
+  await cargarDashboardSupabase();
+
 }
 
-/* DASHBOARD LOCAL */
 
-function cargarDashboard(){
+async function cargarDashboardSupabase(){
 
-  const registros=
-    JSON.parse(localStorage.getItem("encuestasTI"))||[];
+  const {
+    data,
+    error
+  }=
+  await supabaseClient
+  .from("encuestas")
+  .select("*")
+  .order(
+    "fecha",
+    {
+      ascending:false
+    }
+  );
 
-  const total=registros.length;
+
+  if(
+    error
+  ){
+
+    alert(
+      "No fue posible cargar los resultados."
+    );
+
+    console.error(
+      error
+    );
+
+    return;
+
+  }
+
+
+  cargarDashboard(
+    data || []
+  );
+
+}
+
+
+/* CÁLCULOS DEL DASHBOARD */
+
+function cargarDashboard(
+  registros
+){
+
+  const total=
+  registros.length;
+
 
   const puntos=
-    registros.reduce((a,r)=>a+r.puntos,0);
+  registros.reduce(
+    (a,r)=>
+    a+Number(r.puntos || 0),
+    0
+  );
 
-  const maximo=total*25;
+
+  const maximo=
+  total*25;
+
 
   const satisfaccion=
-    maximo
-      ? (puntos/maximo*100).toFixed(2)
-      : 0;
+  maximo
+  ? (
+      puntos/
+      maximo*
+      100
+    )
+    .toFixed(2)
+  : 0;
 
-  document.getElementById("totalEncuestas").textContent=total;
 
-  document.getElementById("puntosResultado").textContent=
-    `${puntos} / ${maximo}`;
+  document
+  .getElementById(
+    "totalEncuestas"
+  )
+  .textContent=
+  total;
 
-  document.getElementById("satisfaccionGeneral").textContent=
-    `${satisfaccion}%`;
+
+  document
+  .getElementById(
+    "puntosResultado"
+  )
+  .textContent=
+  `${puntos} / ${maximo}`;
+
+
+  document
+  .getElementById(
+    "satisfaccionGeneral"
+  )
+  .textContent=
+  `${satisfaccion}%`;
+
 
   const si=
-    registros.filter(r=>r.resuelto==="Sí").length;
+  registros.filter(
+    r=>
+    r.resuelto==="Sí"
+  )
+  .length;
+
 
   const porcResueltos=
-    total ? ((si/total)*100).toFixed(1) : 0;
+  total
+  ? (
+      si/
+      total*
+      100
+    )
+    .toFixed(1)
+  : 0;
 
-  document.getElementById("resueltosGeneral").textContent=
-    porcResueltos+"%";
+
+  document
+  .getElementById(
+    "resueltosGeneral"
+  )
+  .textContent=
+  porcResueltos+"%";
+
 
   const preguntas=[
-    ["p1","Tiempo de atención"],
-    ["p2","Atención del personal"],
-    ["p3","Solución recibida"],
-    ["p4","Claridad de explicación"],
-    ["p5","Satisfacción general"]
+
+    [
+      "p1",
+      "Tiempo de atención"
+    ],
+
+    [
+      "p2",
+      "Atención del personal"
+    ],
+
+    [
+      "p3",
+      "Solución recibida"
+    ],
+
+    [
+      "p4",
+      "Claridad de explicación"
+    ],
+
+    [
+      "p5",
+      "Satisfacción general"
+    ]
+
   ];
+
 
   let html="";
 
-  preguntas.forEach(([campo,nombre])=>{
 
-    const suma=
-      registros.reduce((a,r)=>a+r[campo],0);
+  preguntas.forEach(
+    ([campo,nombre])=>{
 
-    const max=
+      const suma=
+      registros.reduce(
+        (a,r)=>
+        a+
+        Number(
+          r[campo] || 0
+        ),
+        0
+      );
+
+
+      const max=
       total*5;
 
-    const porcentaje=
-      max ? (suma/max*100).toFixed(2) : 0;
 
-    html+=`
-      <div class="barra-fila">
-        <div class="barra-titulo">
-          <span>${nombre}</span>
-          <strong>${porcentaje}%</strong>
+      const porcentaje=
+      max
+      ? (
+          suma/
+          max*
+          100
+        )
+        .toFixed(2)
+      : 0;
+
+
+      html+=`
+
+        <div
+        class="barra-fila">
+
+          <div
+          class="barra-titulo">
+
+            <span>
+            ${nombre}
+            </span>
+
+            <strong>
+            ${porcentaje}%
+            </strong>
+
+          </div>
+
+          <div
+          class="barra">
+
+            <div
+            style="width:${porcentaje}%">
+            </div>
+
+          </div>
+
         </div>
-        <div class="barra">
-          <div style="width:${porcentaje}%"></div>
-        </div>
-      </div>
-    `;
-  });
 
-  document.getElementById("resultadoPreguntas").innerHTML=html;
+      `;
 
-  crearTabla(registros,"resuelto","tablaResolucion");
-  crearTabla(registros,"medio","tablaCanales");
-  crearTabla(registros,"seccion","tablaSecciones");
-  crearTabla(registros,"problema","tablaProblemas");
+    }
+  );
+
+
+  document
+  .getElementById(
+    "resultadoPreguntas"
+  )
+  .innerHTML=
+  html;
+
+
+  crearTabla(
+    registros,
+    "resuelto",
+    "tablaResolucion"
+  );
+
+
+  crearTabla(
+    registros,
+    "medio",
+    "tablaCanales"
+  );
+
+
+  crearTabla(
+    registros,
+    "seccion",
+    "tablaSecciones"
+  );
+
+
+  crearTabla(
+    registros,
+    "problema",
+    "tablaProblemas"
+  );
+
 
   const comentarios=
-    registros.filter(r=>r.comentario);
+  registros.filter(
+    r=>
+    r.comentario
+  );
+
 
   const cont=
-    document.getElementById("listaComentarios");
+  document
+  .getElementById(
+    "listaComentarios"
+  );
 
-  if(!comentarios.length){
+
+  if(
+    !comentarios.length
+  ){
 
     cont.innerHTML=
-      "<p>No hay comentarios registrados.</p>";
+    "<p>No hay comentarios registrados.</p>";
 
   }else{
 
     cont.innerHTML=
-      comentarios
-      .slice()
-      .reverse()
-      .map(r=>`
-        <div class="comentario">
-          <strong>${new Date(r.fecha).toLocaleDateString()}</strong>
-          <br>
-          ${r.comentario}
-        </div>
-      `)
-      .join("");
+    comentarios
+    .map(
+      r=>`
+
+      <div
+      class="comentario">
+
+        <strong>
+
+        ${
+          new Date(
+            r.fecha
+          )
+          .toLocaleDateString(
+            "es-MX"
+          )
+        }
+
+        </strong>
+
+        <br>
+
+        ${r.comentario}
+
+      </div>
+
+      `
+    )
+    .join("");
+
   }
+
 }
 
-function crearTabla(registros,campo,id){
+
+function crearTabla(
+  registros,
+  campo,
+  id
+){
 
   const conteo={};
 
-  registros.forEach(r=>{
 
-    const valor=r[campo]||"Sin especificar";
+  registros.forEach(
+    r=>{
 
-    conteo[valor]=(conteo[valor]||0)+1;
-  });
+      const valor=
+      r[campo]
+      ||
+      "Sin especificar";
 
-  const total=registros.length;
+
+      conteo[valor]=
+      (
+        conteo[valor]
+        ||
+        0
+      )
+      +
+      1;
+
+    }
+  );
+
+
+  const total=
+  registros.length;
+
 
   const filas=
-    Object.entries(conteo)
-    .sort((a,b)=>b[1]-a[1])
-    .map(([nombre,cantidad])=>{
+  Object
+  .entries(
+    conteo
+  )
+  .sort(
+    (a,b)=>
+    b[1]-a[1]
+  )
+  .map(
+    ([nombre,cantidad])=>{
+
 
       const porcentaje=
-        total
-          ? ((cantidad/total)*100).toFixed(1)
-          : 0;
+      total
+      ? (
+          cantidad/
+          total*
+          100
+        )
+        .toFixed(1)
+      : 0;
 
-      return `
+
+      return`
+
         <tr>
-          <td>${nombre}</td>
-          <td>${cantidad}</td>
-          <td>${porcentaje}%</td>
-        </tr>
-      `;
-    }).join("");
 
-  document.getElementById(id).innerHTML=
-    filas || `<tr><td>Sin datos</td></tr>`;
+          <td>
+          ${nombre}
+          </td>
+
+          <td>
+          ${cantidad}
+          </td>
+
+          <td>
+          ${porcentaje}%
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+  )
+  .join("");
+
+
+  document
+  .getElementById(
+    id
+  )
+  .innerHTML=
+
+  filas
+  ||
+  `
+  <tr>
+    <td>
+    Sin datos
+    </td>
+  </tr>
+  `;
+
 }
+
+
+/* SINCRONIZACIÓN AUTOMÁTICA */
 
 window.addEventListener(
   "online",
   sincronizarPendientes
 );
+
 
 window.addEventListener(
   "load",
