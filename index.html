@@ -1,209 +1,485 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Encuesta de Satisfacción TI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Satisfacción - Digitalización</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-      color: #222;
+    * {
+      box-sizing: border-box;
     }
 
-    .contenedor {
-      max-width: 500px;
-      margin: 40px auto;
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #eef3f6;
+      color: #1f1f1f;
+    }
+
+    .app {
+      max-width: 760px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
       background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
     }
 
     h1 {
+      margin-top: 0;
       text-align: center;
-      margin-bottom: 10px;
+      font-size: 34px;
     }
 
-    p {
+    h2 {
+      margin-top: 0;
+      font-size: 25px;
+    }
+
+    .subtitulo {
       text-align: center;
       color: #666;
+      margin-bottom: 30px;
+    }
+
+    .campo {
+      margin-bottom: 22px;
     }
 
     label {
       display: block;
-      margin-top: 20px;
-      margin-bottom: 8px;
       font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 17px;
     }
 
     select,
+    input,
     textarea {
       width: 100%;
-      padding: 12px;
+      padding: 13px 14px;
+      border: 1px solid #c8c8c8;
       border-radius: 10px;
-      border: 1px solid #ccc;
       font-size: 16px;
-      box-sizing: border-box;
+      background: white;
     }
 
     textarea {
-      resize: vertical;
       min-height: 100px;
-    }
-
-    .estrellas {
-      display: flex;
-      gap: 10px;
-      font-size: 34px;
-      cursor: pointer;
-    }
-
-    .estrella {
-      opacity: 0.3;
-    }
-
-    .estrella.activa {
-      opacity: 1;
+      resize: vertical;
     }
 
     button {
       width: 100%;
-      margin-top: 25px;
-      padding: 14px;
       border: none;
-      border-radius: 10px;
-      background: #222;
-      color: white;
+      border-radius: 12px;
+      padding: 15px;
       font-size: 17px;
+      font-weight: bold;
       cursor: pointer;
+      background: #163b70;
+      color: white;
+      margin-top: 10px;
     }
 
-    .mensaje {
+    button.secundario {
+      background: #e8edf3;
+      color: #1d3557;
+    }
+
+    .oculto {
       display: none;
-      text-align: center;
-      margin-top: 20px;
+    }
+
+    .pregunta {
+      margin-bottom: 28px;
+    }
+
+    .pregunta p {
+      margin-bottom: 12px;
       font-weight: bold;
+      font-size: 17px;
+    }
+
+    .escala {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .opcion-escala {
+      flex: 1;
+      text-align: center;
+    }
+
+    .opcion-escala input {
+      display: none;
+    }
+
+    .opcion-escala label {
+      display: block;
+      padding: 12px 0;
+      border: 1px solid #cfd5db;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 0;
+      font-weight: normal;
+    }
+
+    .opcion-escala input:checked + label {
+      background: #163b70;
+      color: white;
+      border-color: #163b70;
+    }
+
+    .extremos {
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .mensaje-final {
+      text-align: center;
+      padding: 35px 15px;
+    }
+
+    .mensaje-final .check {
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+
+    .resumen {
+      background: #f6f8fa;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        margin: 0;
+        padding: 12px;
+      }
+
+      .card {
+        border-radius: 14px;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .escala {
+        gap: 4px;
+      }
+
+      .opcion-escala label {
+        padding: 10px 0;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="contenedor">
+<div class="app">
 
-    <h1>Servicio de TI</h1>
+  <!-- PANTALLA TÉCNICO -->
+  <section id="pantallaTecnico" class="card">
 
-    <p>Ayúdanos a evaluar la atención recibida.</p>
+    <h1>Digitalización</h1>
+    <p class="subtitulo">Registro previo del servicio</p>
 
-    <label>¿El problema quedó resuelto?</label>
-
-    <select id="resuelto">
-      <option value="">Selecciona una opción</option>
-      <option value="Sí">Sí</option>
-      <option value="Parcialmente">Parcialmente</option>
-      <option value="No">No</option>
-    </select>
-
-    <label>¿Cómo calificas la atención?</label>
-
-    <div class="estrellas" id="estrellas">
-      <span class="estrella" data-valor="1">★</span>
-      <span class="estrella" data-valor="2">★</span>
-      <span class="estrella" data-valor="3">★</span>
-      <span class="estrella" data-valor="4">★</span>
-      <span class="estrella" data-valor="5">★</span>
+    <div class="campo">
+      <label for="tecnico">Técnico que realizó el servicio</label>
+      <select id="tecnico">
+        <option value="">Selecciona</option>
+        <option value="Marcia Rodríguez">Marcia Rodríguez</option>
+        <option value="Otro">Otro</option>
+      </select>
     </div>
 
-    <label>Comentario adicional</label>
-
-    <textarea id="comentario" placeholder="Opcional"></textarea>
-
-    <button onclick="guardarEncuesta()">
-      Enviar evaluación
-    </button>
-
-    <div class="mensaje" id="mensaje">
-      ✓ Gracias. Tu evaluación fue registrada.
+    <div class="campo">
+      <label for="seccion">Sección</label>
+      <select id="seccion">
+        <option value="">Selecciona</option>
+        <option>Maternal</option>
+        <option>Kínder</option>
+        <option>Primaria</option>
+        <option>Secundaria</option>
+        <option>Bachillerato</option>
+        <option>Administración</option>
+        <option>Dirección</option>
+        <option>Otro</option>
+      </select>
     </div>
 
-  </div>
+    <div class="campo">
+      <label for="cargo">Cargo o rol de la persona atendida</label>
+      <select id="cargo">
+        <option value="">Selecciona</option>
+        <option>Docente</option>
+        <option>Coordinación</option>
+        <option>Dirección</option>
+        <option>Administrativo</option>
+        <option>Auxiliar</option>
+        <option>Alumno</option>
+        <option>Padre de familia</option>
+        <option>Otro</option>
+      </select>
+    </div>
 
-  <script>
+    <div class="campo">
+      <label for="medio">¿Por qué medio solicitó apoyo al área de Digitalización?</label>
+      <select id="medio">
+        <option value="">Selecciona</option>
+        <option>Telegram</option>
+        <option>Llamada telefónica</option>
+        <option>Correo electrónico</option>
+        <option>En persona</option>
+        <option>Otro</option>
+      </select>
+    </div>
 
-    let calificacion = 0;
+    <div class="campo">
+      <label for="problema">Tipo de problema atendido</label>
+      <select id="problema">
+        <option value="">Selecciona</option>
+        <option>Internet / Wi-Fi</option>
+        <option>Proyector</option>
+        <option>Impresora</option>
+        <option>iPad</option>
+        <option>Computadora</option>
+        <option>Software / Aplicación</option>
+        <option>Cuenta / Acceso</option>
+        <option>Google Classroom</option>
+        <option>Audio / Video</option>
+        <option>Otro</option>
+      </select>
+    </div>
 
-    const estrellas = document.querySelectorAll(".estrella");
+    <button onclick="iniciarEncuesta()">Entregar encuesta</button>
 
-    estrellas.forEach(estrella => {
-
-      estrella.addEventListener("click", () => {
-
-        calificacion = Number(estrella.dataset.valor);
-
-        estrellas.forEach((e, index) => {
-
-          if (index < calificacion) {
-            e.classList.add("activa");
-          } else {
-            e.classList.remove("activa");
-          }
-
-        });
-
-      });
-
-    });
+  </section>
 
 
-    function guardarEncuesta() {
+  <!-- PANTALLA ENCUESTA -->
+  <section id="pantallaEncuesta" class="card oculto">
 
-      const resuelto = document.getElementById("resuelto").value;
-      const comentario = document.getElementById("comentario").value;
+    <h1>Encuesta de satisfacción</h1>
 
-      if (!resuelto || calificacion === 0) {
+    <p class="subtitulo">
+      Su opinión nos ayuda a mejorar la atención y los servicios del área de Digitalización.
+    </p>
 
-        alert("Por favor completa la evaluación.");
+    <div class="resumen">
+      Esta evaluación es confidencial. La información del servicio ya fue registrada por el personal de Digitalización.
+    </div>
 
-        return;
+    <div class="campo">
+      <label for="resuelto">¿El problema quedó resuelto?</label>
+      <select id="resuelto">
+        <option value="">Selecciona</option>
+        <option>Sí</option>
+        <option>Parcialmente</option>
+        <option>No</option>
+      </select>
+    </div>
 
-      }
+    <div class="pregunta">
+      <p>1. Tiempo de atención recibido</p>
+      <div class="escala" data-pregunta="p1"></div>
+      <div class="extremos"><span>Malo</span><span>Excelente</span></div>
+    </div>
 
-      const encuesta = {
+    <div class="pregunta">
+      <p>2. Atención brindada por el personal de Digitalización</p>
+      <div class="escala" data-pregunta="p2"></div>
+      <div class="extremos"><span>Mala</span><span>Excelente</span></div>
+    </div>
 
-        fecha: new Date().toISOString(),
-        resuelto: resuelto,
-        calificacion: calificacion,
-        comentario: comentario
+    <div class="pregunta">
+      <p>3. La solución o información recibida respondió a su necesidad</p>
+      <div class="escala" data-pregunta="p3"></div>
+      <div class="extremos"><span>Malo</span><span>Excelente</span></div>
+    </div>
 
-      };
+    <div class="pregunta">
+      <p>4. La explicación proporcionada fue clara y fácil de comprender</p>
+      <div class="escala" data-pregunta="p4"></div>
+      <div class="extremos"><span>Malo</span><span>Excelente</span></div>
+    </div>
 
-      let encuestas = JSON.parse(
-        localStorage.getItem("encuestasTI")
-      ) || [];
+    <div class="pregunta">
+      <p>5. Satisfacción general con el servicio recibido</p>
+      <div class="escala" data-pregunta="p5"></div>
+      <div class="extremos"><span>Muy baja</span><span>Excelente</span></div>
+    </div>
 
-      encuestas.push(encuesta);
+    <div class="campo">
+      <label for="comentario">Comentarios o sugerencias</label>
+      <textarea id="comentario" placeholder="Opcional"></textarea>
+    </div>
 
-      localStorage.setItem(
-        "encuestasTI",
-        JSON.stringify(encuestas)
-      );
+    <button onclick="guardarEncuesta()">Enviar evaluación</button>
 
-      document.getElementById("mensaje").style.display = "block";
+  </section>
 
-      document.getElementById("resuelto").value = "";
-      document.getElementById("comentario").value = "";
 
-      calificacion = 0;
+  <!-- PANTALLA FINAL -->
+  <section id="pantallaFinal" class="card oculto">
 
-      estrellas.forEach(e => e.classList.remove("activa"));
+    <div class="mensaje-final">
+      <div class="check">✓</div>
+      <h2>Gracias por su evaluación</h2>
+      <p>Su respuesta ha sido registrada correctamente.</p>
+    </div>
 
+    <button onclick="nuevoServicio()">Nuevo servicio</button>
+
+  </section>
+
+</div>
+
+
+<script>
+
+let servicioActual = null;
+
+function crearEscalas() {
+  document.querySelectorAll(".escala").forEach(contenedor => {
+
+    const pregunta = contenedor.dataset.pregunta;
+
+    for (let i = 1; i <= 5; i++) {
+
+      const div = document.createElement("div");
+      div.className = "opcion-escala";
+
+      div.innerHTML = `
+        <input type="radio" id="${pregunta}_${i}" name="${pregunta}" value="${i}">
+        <label for="${pregunta}_${i}">${i}</label>
+      `;
+
+      contenedor.appendChild(div);
     }
 
-  </script>
+  });
+}
+
+crearEscalas();
+
+
+function iniciarEncuesta() {
+
+  const tecnico = document.getElementById("tecnico").value;
+  const seccion = document.getElementById("seccion").value;
+  const cargo = document.getElementById("cargo").value;
+  const medio = document.getElementById("medio").value;
+  const problema = document.getElementById("problema").value;
+
+  if (!tecnico || !seccion || !cargo || !medio || !problema) {
+    alert("Completa todos los datos del servicio antes de continuar.");
+    return;
+  }
+
+  servicioActual = {
+    tecnico,
+    seccion,
+    cargo,
+    medio,
+    problema,
+    fecha: new Date().toISOString()
+  };
+
+  document.getElementById("pantallaTecnico").classList.add("oculto");
+  document.getElementById("pantallaEncuesta").classList.remove("oculto");
+}
+
+
+function valorPregunta(nombre) {
+  const seleccionado = document.querySelector(`input[name="${nombre}"]:checked`);
+  return seleccionado ? Number(seleccionado.value) : null;
+}
+
+
+function guardarEncuesta() {
+
+  const resuelto = document.getElementById("resuelto").value;
+
+  const p1 = valorPregunta("p1");
+  const p2 = valorPregunta("p2");
+  const p3 = valorPregunta("p3");
+  const p4 = valorPregunta("p4");
+  const p5 = valorPregunta("p5");
+
+  const comentario = document.getElementById("comentario").value.trim();
+
+  if (!resuelto || !p1 || !p2 || !p3 || !p4 || !p5) {
+    alert("Por favor responde todas las preguntas obligatorias.");
+    return;
+  }
+
+  const puntos = p1 + p2 + p3 + p4 + p5;
+  const porcentaje = Number(((puntos / 25) * 100).toFixed(2));
+
+  const registro = {
+    ...servicioActual,
+    resuelto,
+    p1,
+    p2,
+    p3,
+    p4,
+    p5,
+    puntos,
+    porcentaje,
+    comentario,
+    sincronizado: false
+  };
+
+  let registros = JSON.parse(localStorage.getItem("encuestasTI")) || [];
+
+  registros.push(registro);
+
+  localStorage.setItem("encuestasTI", JSON.stringify(registros));
+
+  document.getElementById("pantallaEncuesta").classList.add("oculto");
+  document.getElementById("pantallaFinal").classList.remove("oculto");
+}
+
+
+function nuevoServicio() {
+
+  servicioActual = null;
+
+  document.getElementById("tecnico").value = "";
+  document.getElementById("seccion").value = "";
+  document.getElementById("cargo").value = "";
+  document.getElementById("medio").value = "";
+  document.getElementById("problema").value = "";
+
+  document.getElementById("resuelto").value = "";
+  document.getElementById("comentario").value = "";
+
+  document.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radio.checked = false;
+  });
+
+  document.getElementById("pantallaFinal").classList.add("oculto");
+  document.getElementById("pantallaTecnico").classList.remove("oculto");
+}
+
+</script>
 
 </body>
 </html>
