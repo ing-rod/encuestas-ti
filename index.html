@@ -307,11 +307,6 @@ button.terciario{
   }
 }
 </style>
-  
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#163b70">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  
 </head>
 
 <body>
@@ -327,10 +322,23 @@ button.terciario{
 <p class="subtitulo">Registro previo del servicio</p>
 
 <div class="campo">
+<label>Campus</label>
+<select id="campus">
+<option value="">Selecciona</option>
+<option>Anglo Mexicano</option>
+<option>Howard Gardner</option>
+</select>
+</div>
+
+<div class="campo">
 <label>Técnico que realizó el servicio</label>
 <select id="tecnico">
 <option value="">Selecciona</option>
+<option>Gabriela Reyna</option>
+<option>Jordant Bravata</option>
+<option>Manuel Guevara</option>
 <option>Marcia Rodríguez</option>
+<option>Patricia Landeta</option>
 <option>Otro</option>
 </select>
 </div>
@@ -533,6 +541,13 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 </div>
 
 <div class="campo">
+<label for="filtroCampus">Campus</label>
+<select id="filtroCampus">
+<option value="">Todos</option>
+</select>
+</div>
+
+<div class="campo">
 <label for="filtroTecnico">Técnico</label>
 <select id="filtroTecnico">
 <option value="">Todos</option>
@@ -607,6 +622,13 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 <h2>Canal de solicitud</h2>
 <table class="tabla">
 <tbody id="tablaCanales"></tbody>
+</table>
+</div>
+
+<div class="bloque">
+<h2>Campus atendidos</h2>
+<table class="tabla">
+<tbody id="tablaCampus"></tbody>
 </table>
 </div>
 
@@ -709,6 +731,9 @@ function mostrarPantalla(id){
 
 function iniciarEncuesta(){
 
+  const campus=
+  document.getElementById("campus").value;
+
   const tecnico=
   document.getElementById("tecnico").value;
 
@@ -725,6 +750,7 @@ function iniciarEncuesta(){
   document.getElementById("problema").value;
 
   if(
+    !campus ||
     !tecnico ||
     !seccion ||
     !cargo ||
@@ -737,6 +763,7 @@ function iniciarEncuesta(){
   }
 
   servicioActual={
+    campus,
     tecnico,
     seccion,
     cargo,
@@ -870,6 +897,7 @@ function registroSupabase(registro){
   return{
     local_id:registro.local_id,
     fecha:registro.fecha,
+    campus:registro.campus,
     tecnico:registro.tecnico,
     seccion:registro.seccion,
     cargo:registro.cargo,
@@ -1000,6 +1028,7 @@ function nuevoServicio(){
 
   document.getElementById("resuelto").value="";
   document.getElementById("comentario").value="";
+  document.getElementById("campus").value="";
   document.getElementById("tecnico").value="";
   document.getElementById("seccion").value="";
   document.getElementById("cargo").value="";
@@ -1138,6 +1167,12 @@ async function cargarDashboardSupabase(){
 function popularFiltros(registros){
 
   llenarSelectFiltro(
+    "filtroCampus",
+    registros.map(r=>r.campus),
+    "Todos"
+  );
+
+  llenarSelectFiltro(
     "filtroTecnico",
     registros.map(r=>r.tecnico),
     "Todos"
@@ -1223,6 +1258,9 @@ function aplicarFiltros(){
   const hasta=
   document.getElementById("filtroHasta").value;
 
+  const campus=
+  document.getElementById("filtroCampus").value;
+
   const tecnico=
   document.getElementById("filtroTecnico").value;
 
@@ -1249,6 +1287,10 @@ function aplicarFiltros(){
     }
 
     if(hasta && fecha>hasta){
+      return false;
+    }
+
+    if(campus && r.campus!==campus){
       return false;
     }
 
@@ -1279,6 +1321,7 @@ function limpiarValoresFiltros(){
 
   document.getElementById("filtroDesde").value="";
   document.getElementById("filtroHasta").value="";
+  document.getElementById("filtroCampus").value="";
   document.getElementById("filtroTecnico").value="";
   document.getElementById("filtroSeccion").value="";
   document.getElementById("filtroProblema").value="";
@@ -1332,6 +1375,7 @@ function exportarCSV(){
 
   const encabezados=[
     "Fecha",
+    "Campus",
     "Técnico",
     "Sección",
     "Cargo o rol",
@@ -1351,6 +1395,7 @@ function exportarCSV(){
   const filas=
   registros.map(r=>[
     formatearFechaHora(r.fecha),
+    r.campus || "",
     r.tecnico || "",
     r.seccion || "",
     r.cargo || "",
@@ -1537,6 +1582,12 @@ function cargarDashboard(registros){
 
   crearTabla(
     registros,
+    "campus",
+    "tablaCampus"
+  );
+
+  crearTabla(
+    registros,
     "seccion",
     "tablaSecciones"
   );
@@ -1700,13 +1751,5 @@ window.addEventListener(
 
 </script>
 
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
-  });
-}
-</script>
-  
 </body>
 </html>
