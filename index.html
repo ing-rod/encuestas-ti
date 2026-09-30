@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Encuesta de Satisfacción - Digitalización</title>
+<title>Digitalización Anglo</title>
 
 <style>
 *{box-sizing:border-box}
@@ -307,6 +307,14 @@ button.terciario{
   }
 }
 </style>
+
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#163b70">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Digitalización">
+<link rel="apple-touch-icon" sizes="180x180" href="/encuestas-ti/apple-touch-icon.png?v=4">
+
 </head>
 
 <body>
@@ -1749,6 +1757,15 @@ window.addEventListener(
   sincronizarPendientes
 );
 
+</script>
+
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
 </script>
 
 </body>
