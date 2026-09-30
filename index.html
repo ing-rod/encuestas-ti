@@ -510,6 +510,123 @@ button.terciario{
   }
 }
 
+
+.resumen-escala{
+  margin:-12px 0 26px;
+  padding:14px 16px;
+  border-radius:16px;
+  background:#f4f8fd;
+  color:#5d6878;
+  font-size:14px;
+  line-height:1.45;
+  text-align:center;
+}
+
+.reporte-semestre{
+  margin:26px 0;
+  padding:22px;
+  border:1px solid #e4eaf2;
+  border-radius:22px;
+  background:linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);
+}
+
+.reporte-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.reporte-acciones{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:16px;
+}
+
+.reporte-resumen{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:18px 0;
+}
+
+.reporte-dato{
+  padding:16px 12px;
+  border:1px solid #e8edf4;
+  border-radius:17px;
+  background:#fff;
+  text-align:center;
+}
+
+.reporte-dato strong{
+  display:block;
+  color:var(--azul);
+  font-size:24px;
+  letter-spacing:-.6px;
+}
+
+.reporte-dato span{
+  display:block;
+  margin-top:5px;
+  color:#737c8c;
+  font-size:12px;
+}
+
+.tendencia-wrap{
+  margin-top:18px;
+  overflow-x:auto;
+}
+
+.tendencia-svg{
+  display:block;
+  width:100%;
+  min-width:620px;
+  height:auto;
+  border:1px solid #edf0f4;
+  border-radius:18px;
+  background:#fff;
+}
+
+.reporte-nota{
+  margin-top:12px;
+  color:#737c8c;
+  font-size:12px;
+  line-height:1.45;
+}
+
+@media(max-width:760px){
+  .reporte-grid,
+  .reporte-acciones,
+  .reporte-resumen{
+    grid-template-columns:1fr;
+  }
+}
+
+@media print{
+  body{
+    background:#fff;
+  }
+  #pantallaTecnico,
+  #pantallaEncuesta,
+  #pantallaFinal,
+  #pantallaLogin,
+  .admin-link,
+  .filtros,
+  #pantallaAdmin > button{
+    display:none!important;
+  }
+  #pantallaAdmin{
+    display:block!important;
+    box-shadow:none;
+    border:0;
+    padding:0;
+  }
+  .reporte-semestre{
+    border:0;
+    padding:0;
+  }
+}
+
 </style>
 
 <link rel="manifest" href="./manifest.json">
@@ -634,8 +751,12 @@ button.terciario{
 Su opinión nos ayuda a mejorar la atención y los servicios del área de Digitalización.
 </p>
 
+<div class="resumen-escala">
+Para las siguientes afirmaciones, selecciona del <strong>1 al 5</strong>, donde 1 significa <strong>Nada de acuerdo</strong> y 5 <strong>Totalmente de acuerdo</strong>.
+</div>
+
 <div class="campo">
-<label>¿El problema quedó resuelto?</label>
+<label>Al terminar la atención, ¿tu problema quedó resuelto?</label>
 <select id="resuelto">
 <option value="">Selecciona</option>
 <option>Sí</option>
@@ -645,38 +766,38 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 </div>
 
 <div class="pregunta">
-<p>1. Tiempo de atención recibido</p>
+<p>1. Me atendieron en un tiempo adecuado después de solicitar apoyo.</p>
 <div class="escala" data-pregunta="p1"></div>
-<div class="extremos"><span>Malo</span><span>Excelente</span></div>
+<div class="extremos"><span>Nada de acuerdo</span><span>Totalmente de acuerdo</span></div>
 </div>
 
 <div class="pregunta">
-<p>2. Atención brindada por el personal de Digitalización</p>
+<p>2. La persona que me atendió fue amable y mostró disposición para ayudarme.</p>
 <div class="escala" data-pregunta="p2"></div>
-<div class="extremos"><span>Mala</span><span>Excelente</span></div>
+<div class="extremos"><span>Nada de acuerdo</span><span>Totalmente de acuerdo</span></div>
 </div>
 
 <div class="pregunta">
-<p>3. La solución o información recibida respondió a su necesidad</p>
+<p>3. La solución o el seguimiento que recibí respondió a mi necesidad.</p>
 <div class="escala" data-pregunta="p3"></div>
-<div class="extremos"><span>Malo</span><span>Excelente</span></div>
+<div class="extremos"><span>Nada de acuerdo</span><span>Totalmente de acuerdo</span></div>
 </div>
 
 <div class="pregunta">
-<p>4. La explicación proporcionada fue clara y fácil de comprender</p>
+<p>4. La explicación que recibí fue clara y fácil de entender.</p>
 <div class="escala" data-pregunta="p4"></div>
-<div class="extremos"><span>Malo</span><span>Excelente</span></div>
+<div class="extremos"><span>Nada de acuerdo</span><span>Totalmente de acuerdo</span></div>
 </div>
 
 <div class="pregunta">
-<p>5. Satisfacción general con el servicio recibido</p>
+<p>5. En general, quedé satisfecho(a) con el servicio recibido.</p>
 <div class="escala" data-pregunta="p5"></div>
-<div class="extremos"><span>Muy baja</span><span>Excelente</span></div>
+<div class="extremos"><span>Nada de acuerdo</span><span>Totalmente de acuerdo</span></div>
 </div>
 
 <div class="campo">
-<label>Comentarios o sugerencias</label>
-<textarea id="comentario" placeholder="Opcional"></textarea>
+<label>¿Hay algo más que quieras contarnos?</label>
+<textarea id="comentario" placeholder="Comentario o sugerencia (opcional)"></textarea>
 </div>
 
 <button onclick="guardarEncuesta()">Enviar evaluación</button>
@@ -815,6 +936,69 @@ Su opinión nos ayuda a mejorar la atención y los servicios del área de Digita
 <div class="texto">Problemas resueltos</div>
 </div>
 
+</div>
+
+<div class="reporte-semestre">
+<h2>Reporte semestral</h2>
+<p class="subtitulo" style="margin:0 0 18px;text-align:left;max-width:none">
+Selecciona el periodo que necesitas presentar. La tendencia se calcula por mes con las encuestas registradas en ese periodo.
+</p>
+
+<div class="reporte-grid">
+  <div class="campo">
+    <label for="reporteDesde">Desde</label>
+    <input id="reporteDesde" type="date">
+  </div>
+  <div class="campo">
+    <label for="reporteHasta">Hasta</label>
+    <input id="reporteHasta" type="date">
+  </div>
+</div>
+
+<div class="reporte-acciones">
+  <button onclick="usarSemestreActual()">Semestre actual</button>
+  <button class="secundario" onclick="generarReporteSemestral()">Generar reporte</button>
+  <button class="terciario" onclick="window.print()">Imprimir / Guardar PDF</button>
+</div>
+
+<div id="reportePeriodo" class="resumen-filtro"></div>
+
+<div class="reporte-resumen">
+  <div class="reporte-dato">
+    <strong id="reporteEncuestas">0</strong>
+    <span>Encuestas</span>
+  </div>
+  <div class="reporte-dato">
+    <strong id="reporteSatisfaccion">0%</strong>
+    <span>Índice de satisfacción</span>
+  </div>
+  <div class="reporte-dato">
+    <strong id="reporteResolucion">0%</strong>
+    <span>Problemas resueltos</span>
+  </div>
+</div>
+
+<div class="tendencia-wrap">
+  <div id="graficaTendencia"></div>
+</div>
+
+<div class="reporte-nota">
+La gráfica muestra el índice mensual de satisfacción calculado como puntos obtenidos entre puntos máximos posibles × 100.
+</div>
+
+<div style="margin-top:18px">
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>Mes</th>
+        <th>Encuestas</th>
+        <th>Satisfacción</th>
+        <th>Resueltos</th>
+      </tr>
+    </thead>
+    <tbody id="tablaTendencia"></tbody>
+  </table>
+</div>
 </div>
 
 
@@ -1371,6 +1555,7 @@ async function cargarDashboardSupabase(){
   );
 
   actualizarResumenFiltro();
+  usarSemestreActual();
 }
 
 
@@ -1594,10 +1779,10 @@ function exportarCSV(){
     "Medio de solicitud",
     "Tipo de problema",
     "Problema resuelto",
-    "P1 Tiempo de atención",
-    "P2 Atención del personal",
-    "P3 Solución recibida",
-    "P4 Claridad",
+    "P1 Tiempo de respuesta percibido",
+    "P2 Trato y disposición",
+    "P3 Solución o seguimiento",
+    "P4 Claridad de la explicación",
     "P5 Satisfacción general",
     "Puntos",
     "Porcentaje",
@@ -1728,10 +1913,10 @@ function cargarDashboard(registros){
 
   const preguntas=[
 
-    ["p1","Tiempo de atención"],
-    ["p2","Atención del personal"],
-    ["p3","Solución recibida"],
-    ["p4","Claridad de explicación"],
+    ["p1","Tiempo de respuesta percibido"],
+    ["p2","Trato y disposición"],
+    ["p3","Solución o seguimiento"],
+    ["p4","Claridad de la explicación"],
     ["p5","Satisfacción general"]
 
   ];
@@ -1914,6 +2099,336 @@ function crearTabla(
     <td>Sin datos</td>
   </tr>
   `;
+}
+
+
+
+/* REPORTE SEMESTRAL */
+
+function usarSemestreActual(){
+
+  const hoy=new Date();
+  const anio=hoy.getFullYear();
+  const mes=hoy.getMonth();
+
+  const inicio=
+  mes<6
+  ? `${anio}-01-01`
+  : `${anio}-07-01`;
+
+  const fin=
+  mes<6
+  ? `${anio}-06-30`
+  : `${anio}-12-31`;
+
+  document.getElementById("reporteDesde").value=inicio;
+  document.getElementById("reporteHasta").value=fin;
+
+  generarReporteSemestral();
+}
+
+
+function generarReporteSemestral(){
+
+  const desde=
+  document.getElementById("reporteDesde").value;
+
+  const hasta=
+  document.getElementById("reporteHasta").value;
+
+  if(!desde || !hasta){
+    alert("Selecciona las fechas del periodo que deseas analizar.");
+    return;
+  }
+
+  if(desde>hasta){
+    alert("La fecha 'Desde' no puede ser posterior a la fecha 'Hasta'.");
+    return;
+  }
+
+  const registros=
+  registrosSupabaseTodos.filter(r=>{
+
+    const fecha=fechaLocalISO(r.fecha);
+
+    return fecha>=desde && fecha<=hasta;
+  });
+
+  const total=registros.length;
+
+  const puntos=
+  registros.reduce(
+    (suma,r)=>suma+Number(r.puntos || 0),
+    0
+  );
+
+  const maximo=total*25;
+
+  const satisfaccion=
+  maximo
+  ? (puntos/maximo*100)
+  : 0;
+
+  const resueltos=
+  registros.filter(r=>r.resuelto==="Sí").length;
+
+  const resolucion=
+  total
+  ? (resueltos/total*100)
+  : 0;
+
+  document.getElementById("reporteEncuestas").textContent=total;
+  document.getElementById("reporteSatisfaccion").textContent=
+  `${satisfaccion.toFixed(2)}%`;
+  document.getElementById("reporteResolucion").textContent=
+  `${resolucion.toFixed(1)}%`;
+
+  document.getElementById("reportePeriodo").textContent=
+  `Periodo: ${formatearFechaSolo(desde)} al ${formatearFechaSolo(hasta)}.`;
+
+  const meses=crearMesesPeriodo(desde,hasta);
+
+  const datosMensuales=
+  meses.map(mes=>{
+
+    const delMes=
+    registros.filter(r=>
+      claveMes(r.fecha)===mes.clave
+    );
+
+    const totalMes=delMes.length;
+
+    const puntosMes=
+    delMes.reduce(
+      (suma,r)=>suma+Number(r.puntos || 0),
+      0
+    );
+
+    const maxMes=totalMes*25;
+
+    const satisfaccionMes=
+    maxMes
+    ? (puntosMes/maxMes*100)
+    : null;
+
+    const resueltosMes=
+    delMes.filter(r=>r.resuelto==="Sí").length;
+
+    const resolucionMes=
+    totalMes
+    ? (resueltosMes/totalMes*100)
+    : null;
+
+    return{
+      ...mes,
+      total:totalMes,
+      satisfaccion:satisfaccionMes,
+      resolucion:resolucionMes
+    };
+  });
+
+  dibujarTendencia(datosMensuales);
+  llenarTablaTendencia(datosMensuales);
+}
+
+
+function crearMesesPeriodo(desde,hasta){
+
+  const [y1,m1]=desde.split("-").map(Number);
+  const [y2,m2]=hasta.split("-").map(Number);
+
+  const actual=new Date(y1,m1-1,1);
+  const fin=new Date(y2,m2-1,1);
+
+  const meses=[];
+
+  while(actual<=fin){
+
+    const y=actual.getFullYear();
+    const m=actual.getMonth()+1;
+
+    const clave=
+    `${y}-${String(m).padStart(2,"0")}`;
+
+    const etiqueta=
+    actual.toLocaleDateString(
+      "es-MX",
+      {month:"short",year:"numeric"}
+    )
+    .replace(".","");
+
+    meses.push({clave,etiqueta});
+
+    actual.setMonth(actual.getMonth()+1);
+  }
+
+  return meses;
+}
+
+
+function claveMes(fecha){
+
+  const d=new Date(fecha);
+
+  if(Number.isNaN(d.getTime())){
+    return "";
+  }
+
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+}
+
+
+function dibujarTendencia(datos){
+
+  const cont=
+  document.getElementById("graficaTendencia");
+
+  const conDatos=
+  datos.filter(d=>d.satisfaccion!==null);
+
+  if(!conDatos.length){
+
+    cont.innerHTML=
+    '<p style="text-align:center;color:#737c8c;padding:24px">No hay encuestas en este periodo.</p>';
+
+    return;
+  }
+
+  const width=760;
+  const height=320;
+
+  const left=58;
+  const right=24;
+  const top=28;
+  const bottom=58;
+
+  const chartW=width-left-right;
+  const chartH=height-top-bottom;
+
+  const minY=0;
+  const maxY=100;
+
+  const posiciones=
+  datos.map((d,i)=>{
+
+    const x=
+    datos.length===1
+    ? left+chartW/2
+    : left+(i/(datos.length-1))*chartW;
+
+    const y=
+    d.satisfaccion===null
+    ? null
+    : top+chartH-((d.satisfaccion-minY)/(maxY-minY))*chartH;
+
+    return {...d,x,y};
+  });
+
+  const segmentos=[];
+  let segmento=[];
+
+  posiciones.forEach(p=>{
+
+    if(p.y===null){
+
+      if(segmento.length){
+        segmentos.push(segmento);
+        segmento=[];
+      }
+
+    }else{
+      segmento.push(p);
+    }
+  });
+
+  if(segmento.length){
+    segmentos.push(segmento);
+  }
+
+  const lineas=
+  segmentos.map(seg=>
+    `<polyline points="${seg.map(p=>`${p.x},${p.y}`).join(" ")}"
+      fill="none"
+      stroke="#246fce"
+      stroke-width="4"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>`
+  ).join("");
+
+  const puntos=
+  posiciones
+  .filter(p=>p.y!==null)
+  .map(p=>
+    `<g>
+      <circle cx="${p.x}" cy="${p.y}" r="6" fill="#246fce"/>
+      <circle cx="${p.x}" cy="${p.y}" r="11" fill="rgba(36,111,206,.12)"/>
+      <text x="${p.x}" y="${p.y-15}" text-anchor="middle"
+        font-size="12" font-weight="700" fill="#163b70">${p.satisfaccion.toFixed(1)}%</text>
+    </g>`
+  ).join("");
+
+  const etiquetasX=
+  posiciones.map(p=>
+    `<text x="${p.x}" y="${height-22}" text-anchor="middle"
+      font-size="12" fill="#6b7280">${escapeHtml(p.etiqueta)}</text>`
+  ).join("");
+
+  const gridValues=[0,25,50,75,100];
+
+  const grid=
+  gridValues.map(v=>{
+
+    const y=
+    top+chartH-((v-minY)/(maxY-minY))*chartH;
+
+    return`
+      <line x1="${left}" x2="${width-right}" y1="${y}" y2="${y}"
+        stroke="#e8edf4" stroke-width="1"/>
+      <text x="${left-10}" y="${y+4}" text-anchor="end"
+        font-size="11" fill="#8a93a2">${v}%</text>
+    `;
+  }).join("");
+
+  cont.innerHTML=`
+    <svg class="tendencia-svg"
+      viewBox="0 0 ${width} ${height}"
+      role="img"
+      aria-label="Tendencia mensual de satisfacción">
+      ${grid}
+      ${lineas}
+      ${puntos}
+      ${etiquetasX}
+    </svg>
+  `;
+}
+
+
+function llenarTablaTendencia(datos){
+
+  const filas=
+  datos.map(d=>`
+    <tr>
+      <td>${escapeHtml(d.etiqueta)}</td>
+      <td>${d.total}</td>
+      <td>${d.satisfaccion===null ? "Sin datos" : d.satisfaccion.toFixed(2)+"%"}</td>
+      <td>${d.resolucion===null ? "Sin datos" : d.resolucion.toFixed(1)+"%"}</td>
+    </tr>
+  `).join("");
+
+  document.getElementById("tablaTendencia").innerHTML=
+  filas || '<tr><td colspan="4">Sin datos</td></tr>';
+}
+
+
+function formatearFechaSolo(fecha){
+
+  const [y,m,d]=fecha.split("-").map(Number);
+
+  return new Date(y,m-1,d)
+  .toLocaleDateString(
+    "es-MX",
+    {day:"2-digit",month:"short",year:"numeric"}
+  );
 }
 
 
