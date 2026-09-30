@@ -1,1 +1,11 @@
-
+{
+  "name": "Digitalización Anglo Mexicano",
+  "short_name": "Digitalización",
+  "description": "Encuesta de satisfacción de servicio técnico del área de Digitalización",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef3f6",
+  "theme_color": "#163b70",
+  "lang": "es-MX"
+}
