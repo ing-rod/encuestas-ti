@@ -627,6 +627,154 @@ button.terciario{
   }
 }
 
+
+/* ENCUESTAS INDIVIDUALES */
+.encuestas-individuales-wrap{
+  overflow-x:auto;
+}
+
+.tabla-individuales{
+  min-width:760px;
+}
+
+.boton-ver{
+  width:auto;
+  min-height:38px;
+  margin:0;
+  padding:8px 12px;
+  border-radius:11px;
+  font-size:13px;
+  box-shadow:none;
+}
+
+.modal-encuesta{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(12,25,45,.48);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+
+.modal-encuesta.oculto{
+  display:none!important;
+}
+
+.modal-contenido{
+  width:min(720px,100%);
+  max-height:88vh;
+  overflow:auto;
+  padding:26px;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 26px 70px rgba(9,30,66,.28);
+}
+
+.modal-cabecera{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+}
+
+.modal-cabecera h2{
+  margin:0;
+}
+
+.cerrar-modal{
+  width:42px;
+  min-width:42px;
+  min-height:42px;
+  margin:0;
+  padding:0;
+  border-radius:50%;
+  background:#edf2f8;
+  color:var(--azul);
+  box-shadow:none;
+  font-size:22px;
+}
+
+.detalle-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.detalle-item{
+  padding:13px 14px;
+  border:1px solid #e8edf4;
+  border-radius:14px;
+  background:#fafbfd;
+}
+
+.detalle-item span{
+  display:block;
+  margin-bottom:4px;
+  color:#7a8392;
+  font-size:12px;
+  font-weight:650;
+}
+
+.detalle-item strong{
+  display:block;
+  color:#273142;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.detalle-preguntas{
+  margin-top:18px;
+}
+
+.detalle-pregunta{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding:12px 0;
+  border-bottom:1px solid #edf0f4;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.detalle-pregunta:last-child{
+  border-bottom:0;
+}
+
+.detalle-pregunta strong{
+  white-space:nowrap;
+  color:var(--azul);
+}
+
+.detalle-comentario{
+  margin-top:18px;
+  padding:15px;
+  border-radius:14px;
+  background:#f4f8fd;
+  line-height:1.5;
+}
+
+@media(max-width:760px){
+  .detalle-grid{
+    grid-template-columns:1fr;
+  }
+  .modal-contenido{
+    padding:20px 16px;
+    border-radius:20px;
+  }
+}
+
+@media print{
+  .modal-encuesta,
+  #bloqueEncuestasIndividuales{
+    display:none!important;
+  }
+}
+
 </style>
 
 <link rel="manifest" href="./manifest.json">
@@ -1048,6 +1196,30 @@ La gráfica muestra el índice mensual de satisfacción calculado como puntos ob
 </table>
 </div>
 
+
+
+<div class="bloque" id="bloqueEncuestasIndividuales">
+<h2>Encuestas individuales</h2>
+<p class="subtitulo" style="margin:0 0 16px;text-align:left;max-width:none">
+Consulta una respuesta específica. Esta lista respeta los filtros aplicados arriba.
+</p>
+<div class="encuestas-individuales-wrap">
+<table class="tabla tabla-individuales">
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Campus</th>
+<th>Técnico</th>
+<th>Problema</th>
+<th>Satisfacción</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="tablaEncuestasIndividuales"></tbody>
+</table>
+</div>
+</div>
+
 <div class="bloque">
 <h2>Comentarios</h2>
 <div id="listaComentarios"></div>
@@ -1057,6 +1229,19 @@ La gráfica muestra el índice mensual de satisfacción calculado como puntos ob
 
 </section>
 
+</div>
+
+<div id="modalEncuesta" class="modal-encuesta oculto" onclick="cerrarEncuestaSiFondo(event)">
+  <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloModalEncuesta">
+    <div class="modal-cabecera">
+      <div>
+        <h2 id="tituloModalEncuesta">Detalle de encuesta</h2>
+        <div id="fechaModalEncuesta" class="resumen-filtro" style="text-align:left;margin-top:5px"></div>
+      </div>
+      <button class="cerrar-modal" onclick="cerrarEncuestaIndividual()" aria-label="Cerrar">×</button>
+    </div>
+    <div id="contenidoModalEncuesta"></div>
+  </div>
 </div>
 
 
@@ -2083,6 +2268,10 @@ function cargarDashboard(registros){
     "tablaProblemas"
   );
 
+
+
+  renderEncuestasIndividuales(registros);
+
   const comentarios=
   registros.filter(
     r=>r.comentario
@@ -2113,6 +2302,145 @@ function cargarDashboard(registros){
     .join("");
   }
 }
+
+
+/* ENCUESTAS INDIVIDUALES */
+
+function renderEncuestasIndividuales(registros){
+
+  const tbody=document.getElementById("tablaEncuestasIndividuales");
+
+  if(!tbody){
+    return;
+  }
+
+  if(!registros.length){
+    tbody.innerHTML=`
+      <tr>
+        <td colspan="6">Sin encuestas para mostrar.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML=registros.map(registro=>{
+
+    const indice=registrosSupabaseTodos.findIndex(r=>
+      (registro.id != null && r.id===registro.id) ||
+      (registro.local_id && r.local_id===registro.local_id)
+    );
+
+    const porcentaje=
+      registro.porcentaje != null
+      ? Number(registro.porcentaje).toFixed(2)+"%"
+      : "—";
+
+    return `
+      <tr>
+        <td>${escapeHtml(formatearFechaHora(registro.fecha))}</td>
+        <td>${escapeHtml(registro.campus || "—")}</td>
+        <td>${escapeHtml(registro.tecnico || "—")}</td>
+        <td>${escapeHtml(registro.problema || "—")}</td>
+        <td>${escapeHtml(porcentaje)}</td>
+        <td><button class="boton-ver" onclick="verEncuestaIndividual(${indice})">Ver encuesta</button></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+
+function verEncuestaIndividual(indice){
+
+  const registro=registrosSupabaseTodos[indice];
+
+  if(!registro){
+    alert("No fue posible abrir esta encuesta.");
+    return;
+  }
+
+  const porcentaje=
+    registro.porcentaje != null
+    ? Number(registro.porcentaje).toFixed(2)+"%"
+    : "—";
+
+  document.getElementById("fechaModalEncuesta").textContent=
+    formatearFechaHora(registro.fecha);
+
+  const preguntas=[
+    ["p1","Tiempo de respuesta percibido"],
+    ["p2","Trato y disposición"],
+    ["p3","Solución o seguimiento"],
+    ["p4","Claridad de la explicación"],
+    ["p5","Satisfacción general"]
+  ];
+
+  const htmlPreguntas=preguntas.map(([campo,nombre])=>`
+    <div class="detalle-pregunta">
+      <span>${escapeHtml(nombre)}</span>
+      <strong>${escapeHtml(registro[campo] ?? "—")} / 5</strong>
+    </div>
+  `).join("");
+
+  document.getElementById("contenidoModalEncuesta").innerHTML=`
+    <div class="detalle-grid">
+      ${detalleItem("Campus",registro.campus)}
+      ${detalleItem("Técnico",registro.tecnico)}
+      ${detalleItem("Sección",registro.seccion)}
+      ${detalleItem("Cargo o rol",registro.cargo)}
+      ${detalleItem("Medio de solicitud",registro.medio)}
+      ${detalleItem("Tipo de problema",registro.problema)}
+      ${detalleItem("Problema resuelto",registro.resuelto)}
+      ${detalleItem("Satisfacción",porcentaje)}
+      ${detalleItem("Puntos",`${registro.puntos ?? "—"} / 25`)}
+    </div>
+
+    <div class="detalle-preguntas">
+      <h2 style="font-size:18px;margin-bottom:6px">Respuestas</h2>
+      ${htmlPreguntas}
+    </div>
+
+    <div class="detalle-comentario">
+      <strong>Comentario</strong><br>
+      ${escapeHtml(registro.comentario || "Sin comentario.")}
+    </div>
+  `;
+
+  document.getElementById("modalEncuesta").classList.remove("oculto");
+  document.body.style.overflow="hidden";
+}
+
+
+function detalleItem(etiqueta,valor){
+  return `
+    <div class="detalle-item">
+      <span>${escapeHtml(etiqueta)}</span>
+      <strong>${escapeHtml(valor ?? "—")}</strong>
+    </div>
+  `;
+}
+
+
+function cerrarEncuestaIndividual(){
+  document.getElementById("modalEncuesta").classList.add("oculto");
+  document.body.style.overflow="";
+}
+
+
+function cerrarEncuestaSiFondo(event){
+  if(event.target.id==="modalEncuesta"){
+    cerrarEncuestaIndividual();
+  }
+}
+
+
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape"){
+    const modal=document.getElementById("modalEncuesta");
+    if(modal && !modal.classList.contains("oculto")){
+      cerrarEncuestaIndividual();
+    }
+  }
+});
 
 
 function crearTabla(
