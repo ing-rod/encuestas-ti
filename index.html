@@ -861,6 +861,8 @@ Para las siguientes afirmaciones, selecciona del <strong>1 al 5</strong>, donde 
 
 <div id="usuarioAdmin" class="usuario-admin"></div>
 
+<button id="btnActualizarDatos" class="secundario" onclick="actualizarDashboard()">↻ Actualizar datos</button>
+
 <div class="filtros">
 
 <h2>Filtros</h2>
@@ -1051,7 +1053,6 @@ La gráfica muestra el índice mensual de satisfacción calculado como puntos ob
 <div id="listaComentarios"></div>
 </div>
 
-<button onclick="actualizarDashboard()">Actualizar resultados</button>
 <button class="secundario" onclick="cerrarSesionAdmin()">Cerrar sesión</button>
 
 </section>
@@ -1522,7 +1523,90 @@ function volverInicio(){
 /* CARGA DESDE SUPABASE */
 
 async function actualizarDashboard(){
-  await cargarDashboardSupabase();
+
+  const boton=
+  document.getElementById("btnActualizarDatos");
+
+  const textoOriginal=
+  boton ? boton.textContent : "↻ Actualizar datos";
+
+  const filtrosActuales={
+    desde:document.getElementById("filtroDesde").value,
+    hasta:document.getElementById("filtroHasta").value,
+    campus:document.getElementById("filtroCampus").value,
+    tecnico:document.getElementById("filtroTecnico").value,
+    seccion:document.getElementById("filtroSeccion").value,
+    problema:document.getElementById("filtroProblema").value
+  };
+
+  const reporteDesde=
+  document.getElementById("reporteDesde").value;
+
+  const reporteHasta=
+  document.getElementById("reporteHasta").value;
+
+  if(boton){
+    boton.disabled=true;
+    boton.textContent="Actualizando…";
+  }
+
+  try{
+
+    const {data,error}=
+    await supabaseClient
+    .from("encuestas")
+    .select("*")
+    .order(
+      "fecha",
+      {ascending:false}
+    );
+
+    if(error){
+      alert("No fue posible actualizar los resultados.");
+      console.error(error);
+      return;
+    }
+
+    registrosSupabaseTodos=
+    data || [];
+
+    popularFiltros(registrosSupabaseTodos);
+
+    document.getElementById("filtroDesde").value=filtrosActuales.desde;
+    document.getElementById("filtroHasta").value=filtrosActuales.hasta;
+    document.getElementById("filtroCampus").value=filtrosActuales.campus;
+    document.getElementById("filtroTecnico").value=filtrosActuales.tecnico;
+    document.getElementById("filtroSeccion").value=filtrosActuales.seccion;
+    document.getElementById("filtroProblema").value=filtrosActuales.problema;
+
+    aplicarFiltros();
+
+    if(reporteDesde && reporteHasta){
+      document.getElementById("reporteDesde").value=reporteDesde;
+      document.getElementById("reporteHasta").value=reporteHasta;
+      generarReporteSemestral();
+    }else{
+      usarSemestreActual();
+    }
+
+    if(boton){
+      boton.textContent="✓ Datos actualizados";
+      setTimeout(()=>{
+        boton.textContent=textoOriginal;
+      },1400);
+    }
+
+  }catch(error){
+
+    console.error(error);
+    alert("No fue posible actualizar los resultados.");
+
+  }finally{
+
+    if(boton){
+      boton.disabled=false;
+    }
+  }
 }
 
 
