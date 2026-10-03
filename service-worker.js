@@ -1,4 +1,4 @@
-const CACHE_NAME = "encuestas-ti-v4.3";
+const CACHE_NAME = "encuestas-ti-v4.4";
 
 const ARCHIVOS = [
   "./",
