@@ -276,6 +276,15 @@ button.terciario{
   font-size:13px;
 }
 
+.app-version{
+  margin-top:14px;
+  text-align:center;
+  color:#a0a7b3;
+  font-size:11px;
+  font-weight:550;
+  letter-spacing:.2px;
+}
+
 .admin-link{
   text-align:center;
   margin-top:18px;
@@ -889,6 +898,8 @@ button.terciario{
 <button onclick="abrirLogin()">Administración</button>
 </div>
 
+<div id="appVersion" class="app-version"></div>
+
 </section>
 
 
@@ -1249,6 +1260,8 @@ Consulta una respuesta específica. Esta lista respeta los filtros aplicados arr
 
 <script>
 
+const APP_VERSION = "4.3";
+
 const SUPABASE_URL =
 "https://bonoutnmhiwoehupounu.supabase.co";
 
@@ -1260,6 +1273,8 @@ window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+
+document.getElementById("appVersion").textContent = `App v${APP_VERSION}`;
 
 let servicioActual=null;
 let registrosSupabaseTodos=[];
